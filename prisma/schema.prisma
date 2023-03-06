@@ -21,6 +21,7 @@ model User {
   email     String      @unique
   name      String
   messages  Message[]
+  chats     Chat[]
   secure    Secure?
 }
 
@@ -42,4 +43,5 @@ model Message {
 model Chat {
   uid        Int     @id @default(autoincrement())
   messages   Message[]
+  users      User[]
 }
