@@ -3,6 +3,7 @@
 		"vue.volar",
 		"esbenp.prettier-vscode",
 		"antfu.iconify",
-		"prisma.prisma"
+		"prisma.prisma",
+		"dbaeumer.vscode-eslint",
 	]
 }
