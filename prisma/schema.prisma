@@ -10,17 +10,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  includeRelationFromFields = true
+  output   = "./ERD.png"
+}
 
 model User {
   uid       String      @id @default(uuid())
-  email     String   @unique
-  name      String?
+  email     String      @unique
+  name      String
   messages  Message[]
+  secure    Secure?
+}
+
+model Secure {
+  user     User      @relation(fields: [userUid], references: [uid])
+  userUid  String    @id
+  password String
 }
 
 model Message {
-  uid        Int      @id @default(autoincrement())
-  title     String
-  author    User     @relation(fields: [authorId], references: [uid])
-  authorId  String
+  uid       Int      @id @default(autoincrement())
+  content   String
+  sender    User     @relation(fields: [senderId], references: [uid])
+  senderId  String
+  chat      Chat     @relation(fields: [chatId], references: [uid])
+  chatId    Int
+}
+
+model Chat {
+  uid        Int     @id @default(autoincrement())
+  messages   Message[]
 }

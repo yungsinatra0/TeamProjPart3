@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.35.0",
@@ -15,7 +16,8 @@
     "eslint-plugin-vue": "^9.9.0",
     "nuxt": "^3.2.3",
     "prettier": "^2.8.4",
-    "prisma": "^4.11.0"
+    "prisma": "^4.11.0",
+    "prisma-erd-generator": "^1.2.4"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0"
