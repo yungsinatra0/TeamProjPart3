@@ -22,13 +22,7 @@ model User {
   name      String
   messages  Message[]
   chats     Chat[]
-  secure    Secure?
-}
-
-model Secure {
-  user     User      @relation(fields: [userUid], references: [uid])
-  userUid  String    @id
-  password String
+  password  String
 }
 
 model Message {
@@ -38,6 +32,7 @@ model Message {
   senderId  String
   chat      Chat     @relation(fields: [chatId], references: [uid])
   chatId    Int
+  created   DateTime @default(now())
 }
 
 model Chat {
