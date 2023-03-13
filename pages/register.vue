@@ -13,7 +13,7 @@ async function onSubmit() {
         body: data,
     })
 
-	navigateTo("/dashboard")
+	navigateTo("/login")
 }
 
 </script>
