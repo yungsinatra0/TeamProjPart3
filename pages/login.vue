@@ -7,7 +7,7 @@ async function onSubmit(){
 		name: form.value!.user.value,
 		password: form.value!.password.value
 	}
-	
+
 	const result = await $fetch("/api/login", {
 		method: "POST",
 		body: data,
@@ -26,15 +26,14 @@ async function onSubmit(){
 
     <form class="form" ref="form" @submit.prevent="onSubmit">
         <label id="title">Member Login</label>
-		<label for="Email">User:</label>
-		<div class="flex-row jc-centre">
+		<label for="User">User:</label>
+		<div class="">
 			<input
 				type="text"
-				id="user"
+				id="User"
 				name="user"
 				placeholder="Type in your username"
 				required
-				autocomplete="username"
 			/>
 		</div>
 		<label for="Password">Password:</label>
@@ -43,7 +42,6 @@ async function onSubmit(){
 			id="Password"
 			name="password"
 			required
-			autocomplete="current-password"
 		/>
 		<Button type="submit" icon="material-symbols:login-rounded">Login</Button>
     </form>
