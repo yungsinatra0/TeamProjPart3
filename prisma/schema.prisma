@@ -10,11 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  includeRelationFromFields = true
-  output   = "./ERD.png"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   includeRelationFromFields = true
+//   output   = "./ERD.png"
+// }
 
 model User {
   uid       String      @id @default(uuid())
