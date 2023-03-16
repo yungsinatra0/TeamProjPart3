@@ -20,8 +20,10 @@ model User {
   uid       String      @id @default(uuid())
   name      String    @unique
   password  String
+  team      Project[]
   messages  Message[]
   chats     Chat[]
+  tasks     Task[]
 }
 
 model Message {
@@ -38,4 +40,23 @@ model Chat {
   uid        Int     @id @default(autoincrement())
   messages   Message[]
   users      User[]
+}
+
+model Task {
+  uid       Int      @id @default(autoincrement())
+  content   String
+  created   DateTime @default(now())
+  workHours Int 
+  completed Boolean  @default(false)
+  assignee  User     @relation(fields: [userId], references: [uid])
+  userId    String
+  project   Project  @relation(fields: [projectId], references: [uid])
+  projectId Int
+}
+
+model Project {
+  uid       Int      @id @default(autoincrement())
+  name      String
+  tasks     Task[]
+  users     User[]
 }
