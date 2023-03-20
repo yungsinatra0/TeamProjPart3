@@ -14,7 +14,7 @@ async function getUsers() {
 <template>
     <div>
         <h1>I'm the default layout that is used on every page (unless explicitly specified)!</h1>
-        <h2> Welcome, {{ user!.name }} </h2>
+       <!-- <h2> Welcome, {{ user!.name }} </h2> -->
 
         <button @click="getUsers">Get Users</button>
         <slot></slot>
