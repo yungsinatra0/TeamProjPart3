@@ -37,26 +37,6 @@
     </html>
     </template>
     
-    <script>
-          src="https://kit.fontawesome.com/64d58efce2.js"
-          crossorigin="anonymous"
-    function getURLParameter(name) {
-        return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]);
-        }
-        function hideURLParams() {
-        //Parameters to hide (ie ?success=value, ?error=value, etc)
-            var hide = ['success','error'];
-            for(var h in hide) {
-                if(getURLParameter(h)) {
-                    history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname);
-                }
-            }
-        }
-    
-        //Run onload, you can do this yourself if you want to do it a different way
-        window.onload = hideURLParams;
-    </script>
-    
     <style>
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
     
