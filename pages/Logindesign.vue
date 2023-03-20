@@ -16,20 +16,15 @@
             </div>
     
             <div class="contact-form">
-              <form action="loginpage.php" autocomplete="off">
                 <h3 class="title">Login Form</h3>
                 <div class="input-container">
-                  <input type="text" name="email" class="input" placeholder="Email Address" required />
+                  <input type="text" name="name" class="input" placeholder="Name" required />
                   <span>Email Address</span>
                 </div>
                 <div class="input-container">
                   <input type="password" name="password" class="input" placeholder = "Password" required />
                   <span>Password</span>
                </div>
-           <form method="POST" action="loginpage.php">
-                    <input type="submit" value="Login" class="button" />
-            </form>
-              </form>
             </div>
           </div>
         </div>
