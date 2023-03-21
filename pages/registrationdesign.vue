@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
-    <link rel="stylesheet" href="registrationstyle.css" />
   </head>
   <body>
     <div class="container">
@@ -16,7 +15,6 @@
 
         <div class="contact-form">
 		<!-- Created a registration form where the user can input their name, email address, position, password and confirmation password -->
-		  <form action = "registrationpage.php">
             <h3 class="title">Registration Form</h3>
 			<p>"Before submitting your registration form you must check that your credentials are correct! Only when all the inputted details are correct will you be able to submit the form" </p>
 			<div class="input-container">
@@ -32,7 +30,6 @@
               <span>Confirm Password</span>
             </div>
 			<input type="submit" id="registerbutton" value="Register" class="button" />	
-			</form>
         </div>
       </div>
     </div>
