@@ -16,7 +16,6 @@
         <div class="contact-form">
 		<!-- Created a registration form where the user can input their name, email address, position, password and confirmation password -->
             <h3 class="title">Registration Form</h3>
-			<p>"Before submitting your registration form you must check that your credentials are correct! Only when all the inputted details are correct will you be able to submit the form" </p>
 			<div class="input-container">
               <input type="text" id="fullname" name="fullname" class="input" placeholder = "Full Name" required />
               <span>Full Name</span>
