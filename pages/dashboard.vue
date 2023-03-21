@@ -38,17 +38,6 @@ table {
 	background-color:cornsilk;
 }
 
-/* navigation bar */
- 
-.navbar {
-  height: 15%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  background-color: #111;
-  overflow-x: hidden;
-}
-
 /* Page content */
 .main {
   margin-left: 200px; /* Same as the width of the sidenav */
