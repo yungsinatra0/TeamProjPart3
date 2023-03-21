@@ -16,7 +16,7 @@
         <div class="contact-form">
 		<!-- Created a registration form where the user can input their name, email address, position, password and confirmation password -->
             <h3 class="title">Registration Form</h3>
-			<div class="input-container">
+			      <div class="input-container">
               <input type="text" id="fullname" name="fullname" class="input" placeholder = "Full Name" required />
               <span>Full Name</span>
             </div>
@@ -24,7 +24,7 @@
               <input type="password" name="password1" id="password1" class="input" placeholder = "Password" required />
               <span>Password</span>
             </div>
-			<div class="input-container">
+			      <div class="input-container">
               <input type="password" name="password2" id="password2" class="input" placeholder = "Confirm Password" required />
               <span>Confirm Password</span>
             </div>
