@@ -13,12 +13,18 @@ async function getUsers() {
 
 <template>
     <div>
-        <h1>I'm the default layout that is used on every page (unless explicitly specified)!</h1>
-        <h2> Welcome, {{ user!.name }} </h2>
+        <div id="myNav" class="navbar">
+            <NuxtLink :to="`/chat`"> <button class="button button1">TEXT CHAT</button> </NuxtLink>
+            
+            <NuxtLink :to="`/data`"> <button class="button button2">DATA ANALYTICS</button> </NuxtLink>
+        </div>
 
-        <button @click="getUsers">Get Users</button>
-        <slot></slot>
+        <div>
+            <button class="button button3" style="width: 24px; text-align:center; vertical-align:middle">LOGOUT</button>
+        </div>
     </div>
+
+    <slot></slot>
 </template>
 
 <style>
