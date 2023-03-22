@@ -19,36 +19,33 @@ async function onSubmit() {
 </script>
 
 <template>
-	<div class="container">
-		<form @submit.prevent="onSubmit" class="form" ref="form">
-			<label id="title" class="title">Member Registration</label>
-			<div class="contact-form">
-				<div class="input-container">
-					<label for="user">User:</label>
-					<input
-						type="text"
-						id="User"
-						placeholder="Enter a username..."
-						required
-						name="user"
-						class="input"
-					/>
-				</div>
-				<div class="input-container">
-					<label for="Password">Password:</label>
-					<input
-						type="password"
-						id="Password"
-						name="password"
-						placeholder="Enter a password..."
-						required
-						class="input"
-					/>
-				</div>
-			</div>
-			<Button class="button" type="submit" icon="material-symbols:login-rounded">Register</Button>
-		</form>
-	</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <div class="contact-info">
+          <h2 class="title">Register</h2>
+        </div>
+        <form class="form" ref="form" @submit.prevent="onSubmit">  
+        <div class="contact-form">
+			      <div class="input-container">
+              <input type="text" id="User" name="user" class="input" placeholder = "Username" required />
+              <span>Name</span>
+            </div>
+            <div class="input-container">
+              <input type="password" name="password" id="Password" class="input" placeholder = "Password" required />
+              <span>Password</span>
+			</div>  
+			<input type="submit" id="registerbutton" value="register" class="button" />	
+        </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </template>
 
 <style>

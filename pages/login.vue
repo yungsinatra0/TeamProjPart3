@@ -40,9 +40,9 @@ async function onSubmit(){
         <div class="contact-info">
           <h2 class="title">Login</h2>
         </div>
-
+        <form class="form" ref="form" @submit.prevent="onSubmit">  
         <div class="contact-form">
-		<!-- Created a registration form where the user can input their name, email address, position, password and confirmation password -->
+		<!-- Created a login form where the user can input their name, email address, position, password and confirmation password -->
 			      <div class="input-container">
               <input type="text" id="User" name="user" class="input" placeholder = "Username" required />
               <span>Name</span>
@@ -53,6 +53,7 @@ async function onSubmit(){
 			</div>  
 			<input type="submit" id="loginbutton" value="Login" class="button" />	
         </div>
+        </form>
       </div>
     </div>
   </body>
