@@ -1,7 +1,7 @@
 const publicRoutes = ["/login", "/register"] // Pages accessible to the public
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-	const { data: user } = await currentUser()
+	const { data: user } = await getCurrentUser()
 	const isAuth = user.value !== null // Check if user is authenticated
 
 	const isPublic = (route: typeof to) =>

@@ -1,13 +1,4 @@
 <template>
-    <!DOCTYPE html>
-    <!-- Simple login page for the user to enter their username and password --> 
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Login</title>
-        <!-- <link rel="stylesheet" href="loginstyle.css" /> -->
-      </head>
       <body>
         <div class="container">
           <div class="form">
@@ -30,7 +21,6 @@
               </div>
             </div>
       </body>
-    </html>
     </template>
     
     <style>
