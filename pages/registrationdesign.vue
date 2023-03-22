@@ -28,7 +28,7 @@
               <input type="password" name="password2" id="password2" class="input" placeholder = "Confirm Password" required />
               <span>Confirm Password</span>
             </div>
-			<input type="submit" id="registerbutton" value="Register" class="button" />	
+			        <input type="submit" id="registerbutton" value="Register" class="button" />	
         </div>
       </div>
     </div>
