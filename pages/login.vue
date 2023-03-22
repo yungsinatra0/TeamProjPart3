@@ -32,7 +32,7 @@ async function onSubmit(){
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration</title>
+    <title>Login</title>
   </head>
   <body>
     <div class="container">
@@ -50,12 +50,8 @@ async function onSubmit(){
             <div class="input-container">
               <input type="password" name="password" id="Password" class="input" placeholder = "Password" required />
               <span>Password</span>
-            </div>
-			      <div class="input-container">
-              <input type="password" name="password2" id="password2" class="input" placeholder = "Confirm Password" required />
-              <span>Confirm Password</span>
-            </div>
-			        <input type="submit" id="registerbutton" value="Register" class="button" />	
+			</div>  
+			<input type="submit" id="loginbutton" value="Login" class="button" />	
         </div>
       </div>
     </div>
@@ -198,7 +194,7 @@ textarea.input {
   color: #fff;
 }
 
-#registerbutton {
+#loginbutton {
   padding: 0.6rem 1.3rem;
   background-color: #fff;
   border: 2px solid #fafafa;
@@ -212,7 +208,7 @@ textarea.input {
   margin: 0;
 }
 
-#registerbutton:hover {
+#loginbutton:hover {
   background-color: transparent;
   color: #fff;
 }
