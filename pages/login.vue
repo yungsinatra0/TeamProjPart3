@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { User } from ".prisma/client"
 
+definePageMeta({
+	layout: "loginreg",
+})
+
 const form = ref<HTMLFormElement>()
 
 function createCookie(user: User){

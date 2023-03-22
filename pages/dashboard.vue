@@ -1,50 +1,16 @@
 <script setup lang="ts">
-
-
 </script>
 
 <template>
+	<div>
+		<h1 style="color:black">Employee name's Dashboard </h1>
+	</div>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="robots" content="noindex, nofollow" />
-<title>Dashboard</title>
+	<div class="box1">Text</div>
 
-</head>
-    <b> This is the dashboard lol</b> <br>
+	<div class="box2">insert text</div>
 
-    <NuxtLink to="/chat">Go to Chat subsystem</NuxtLink> <br>
-    <NuxtLink to="/data">Go to Data Analytics subsystem</NuxtLink>
-
-
-<div id="myNav" class="navbar">
-	<button class="button button1">TEXT CHAT</button>
-	<button class="button button2">DATA ANALYTICS</button>
- 
- 
-</div>
-
-<div>
-	<button class="button button3" style="width: 24px; text-align:center; vertical-align:middle">LOGOUT</button>
-
-</div>
-
-
-<body>
-
-<div>
-<h1 style="color:black">Employee name's Dashboard </h1>
-</div>
-
-<div class="box1">Text</div>
-
-<div class="box2">insert text</div>
-
-<div class="box3">insert text</div>
-</body>
-</html>
+	<div class="box3">insert text</div>
 </template>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
@@ -274,17 +240,6 @@ table {
 	font-family: Courier, monospace;
 	white-space: pre;
 	background-color:cornsilk;
-}
-
-/* navigation bar */
- 
-.navbar {
-  height: 15%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  background-color: #111;
-  overflow-x: hidden;
 }
 
 /* Page content */
