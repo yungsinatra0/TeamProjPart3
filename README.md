@@ -39,3 +39,5 @@ npm run dev
   - The Javascript runtime environment that the server will be running on.
 - [npm](https://www.npmjs.com/)
   - A package manager for Javascript.
+- [vue-charjs](https://vue-chartjs.org/guide/#introduction)
+  - ChartJS for Vue
