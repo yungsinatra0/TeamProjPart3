@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-definePageMeta({
-	layout: "loginreg",
-})
+// definePageMeta({
+// 	layout: "loginreg",
+// })
 
 const form = ref<HTMLFormElement>()
 

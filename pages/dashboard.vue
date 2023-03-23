@@ -3,7 +3,7 @@
 
 <template>
 	<div>
-		<h1 style="color:black">Employee name's Dashboard </h1>
+		<h1 style="color: black;">Employee Dashboard </h1>
 	</div>
   
 	<div class="box1">Text</div>
@@ -12,7 +12,7 @@
 
 	<div class="box3">insert text</div>
 </template>
-<style>
+<!-- <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
@@ -215,7 +215,7 @@ textarea.input {
   color: white;
   opacity: 1;
 }
-</style>
+</style> -->
 <style type="text/css">
 body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
