@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { User } from ".prisma/client"
 
 definePageMeta({
 	layout: "loginreg",
 })
 
 const form = ref<HTMLFormElement>()
-
-function createCookie(user: User){
-	document.cookie = `uid=${user.uid}; path=/` // Add expiration maybe (default until when browser is closed)?
-}
 
 async function onSubmit(){
 	const data = {

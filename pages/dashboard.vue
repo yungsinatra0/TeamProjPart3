@@ -5,7 +5,7 @@
 	<div>
 		<h1 style="color:black">Employee name's Dashboard </h1>
 	</div>
-
+  
 	<div class="box1">Text</div>
 
 	<div class="box2">insert text</div>
@@ -55,7 +55,6 @@ textarea {
   background-color: #5a6563;
   position: relative;
 }
-
 
 .contact-form:before {
   content: "";
