@@ -50,7 +50,7 @@ model Task {
   completed Boolean  @default(false)
   assignee  User     @relation(fields: [userId], references: [uid])
   userId    String
-  project   Project  @relation(fields: [projectId], references: [uid])
+  project   Project?  @relation(fields: [projectId], references: [uid])
   projectId Int
 }
 
