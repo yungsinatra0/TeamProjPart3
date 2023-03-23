@@ -1,13 +1,4 @@
 <script setup lang="ts">
-
-const { data: user } = await getCurrentUser()
-
-// Get all users in the database
-async function getUsers() {
-    const res = await $fetch('/api/users')
-    console.log(res)
-}
-
 </script>
 
 <template>
