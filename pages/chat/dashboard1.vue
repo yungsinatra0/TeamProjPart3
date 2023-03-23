@@ -1,18 +1,42 @@
-<script setup lang="ts">
-</script>
+<!DOCTYPE html>
+<!-- Simple login page for the user to enter their username and password --> 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+  <div class="navbar">
+      <a href="">Make-It-All</a>
+      <a>Data Analytics Page</a>
+	  <a>Chat Box Page</a>
+	  <a>Logout</a>
+     </div>
+    <div class="container">
+      <div class="form">
+        <div class="contact-info">
+          <h3 class="title">Dashboard</h3>
+        </div>
 
-<template>
-	<div>
-		<h1 style="color:black">Employee name's Dashboard </h1>
-	</div>
-  
-	<div class="box1">Text</div>
+        <div class="contact-form">
+          <form action="loginpage.php" autocomplete="off">
+            <h3 class="title">Dashboard</h3>
+            <input type="submit" value="Data Analytics Page" class="button" />
+			<input type="submit" value="Chat Box Page" class="button" />
+          </form>
+        </div>
+      </div>
+    </div>
 
-	<div class="box2">insert text</div>
+  </body>
+</html>
 
-	<div class="box3">insert text</div>
-</template>
-<style>
+<style> 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
@@ -55,6 +79,7 @@ textarea {
   background-color: #5a6563;
   position: relative;
 }
+
 
 .contact-form:before {
   content: "";
@@ -215,141 +240,32 @@ textarea.input {
   color: white;
   opacity: 1;
 }
-</style>
-<style type="text/css">
-body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	background-color: #f0ffff;
-}
-.center {
-	text-align:center;
-}
-body,td,th {
-	color: black; 
-}
-.larger {
-	font-size:larger;
-	text-align:left;
-}
-table {
-	margin-left:auto;
-	margin-right:auto;
-}
-.fixed {
-	font-family: Courier, monospace;
-	white-space: pre;
-	background-color:cornsilk;
-}
 
-/* Page content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-}
-	
-.navbar a:hover {
-	color: blue;
-
-}
-/* button style */
-.button {
-	border: black;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.button1 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button1:hover {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.button2 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button2:hover {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.button3 {
-    line-height: 3px;
-    width: 4px;
-    font-size: 8pt;
-    margin-top: 1px;
-    margin-right: 1px;
-    position:absolute;
-    top:0;
-	right:0;
-	background-color: white;
-	color: black;
-}
-
-.button3:hover {
-	background-color: blue;
-	color: white;
-}
-
-/* task list */
-
-body{
-	height:100vh;
-	background-color: white;
-}
-
-.box1 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
-	color: #fff;
-	padding: 10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	margin-top: 100px;
-	
-	
-
-}
-
-.box2 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
-	color: #fff;
-	padding:10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	top: 100px;
-	
-
-}
-
-.box3 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
-	color: #fff;
-	padding:10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	top: 50px;
-	
-
-}
+/* Add a grey background color to the top navigation */
+.navbar {
+    background-color: #5a6563;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .navbar a {
+    float: left;
+    color: #fafafa;
+    text-align: center;
+    padding: 30px 25px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    background-color: #fafafa;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .navbar a.active {
+    color: #fafafa;
+    background-color: #5a6563;
+	}
 </style>
