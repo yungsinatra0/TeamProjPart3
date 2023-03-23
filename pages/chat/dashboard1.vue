@@ -1,59 +1,42 @@
-<script setup lang="ts">
-
-definePageMeta({
-	layout: "loginreg",
-})
-
-const form = ref<HTMLFormElement>()
-
-async function onSubmit(){
-	const data = {
-		name: form.value!.user.value,
-		password: form.value!.password.value
-	}
-
-	const result = await $fetch("/api/login", {
-		method: "POST",
-		body: data,
-	})
-	if (!result) {
-		alert("Invalid username or password")
-	} else {
-		createCookie(result)
-		navigateTo("/dashboard")
-	}
-}
-
-</script>
-
-<template>
+<!DOCTYPE html>
+<!-- Simple login page for the user to enter their username and password --> 
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
   <body>
+  <div class="navbar">
+      <a href="">Make-It-All</a>
+      <a>Data Analytics Page</a>
+	  <a>Chat Box Page</a>
+	  <a>Logout</a>
+     </div>
     <div class="container">
       <div class="form">
         <div class="contact-info">
-          <h2 class="title">Login</h2>
+          <h3 class="title">Dashboard</h3>
         </div>
-        <form class="form" ref="form" @submit.prevent="onSubmit">  
+
         <div class="contact-form">
-		<!-- Created a login form where the user can input their name, email address, position, password and confirmation password -->
-			      <div class="input-container">
-              <input type="text" id="User" name="user" class="input" placeholder = "Username" required />
-              <span>Name</span>
-            </div>
-            <div class="input-container">
-              <input type="password" name="password" id="Password" class="input" placeholder = "Password" required />
-              <span>Password</span>
-			</div>  
-			<input type="submit" id="loginbutton" value="Login" class="button" />	
+          <form action="loginpage.php" autocomplete="off">
+            <h3 class="title">Dashboard</h3>
+            <input type="submit" value="Data Analytics Page" class="button" />
+			<input type="submit" value="Chat Box Page" class="button" />
+          </form>
         </div>
-        </form>
       </div>
     </div>
+
   </body>
+</html>
 
-</template>
-
-<style>
+<style> 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
@@ -166,29 +149,7 @@ textarea.input {
   top: 1rem;
   transform: translateY(0);
 }
-#ccbutton {
-  padding: 0.6rem 1.3rem;
-  background-color: #fff;
-  border: 2px solid #fafafa;
-  font-size: 0.95rem;
-  color: #5a6563;
-  line-height: 1;
-  border-radius: 25px;
-  outline: none;
-  cursor: pointer;
-  transition: 0.3s;
-  margin: 0;
-  left: 37px;
-  bottom: 23px;
-  position: relative;
-}
-
-#ccbutton:hover {
-  background-color: transparent;
-  color: #fff;
-}
-
-#loginbutton {
+.button {
   padding: 0.6rem 1.3rem;
   background-color: #fff;
   border: 2px solid #fafafa;
@@ -202,7 +163,7 @@ textarea.input {
   margin: 0;
 }
 
-#loginbutton:hover {
+.button:hover {
   background-color: transparent;
   color: #fff;
 }
@@ -263,7 +224,7 @@ textarea.input {
 }
 
 .text {
-  color: #333;
+  color: #500;
   margin: 1.5rem 0 2rem 0;
 }
 
@@ -279,4 +240,32 @@ textarea.input {
   color: white;
   opacity: 1;
 }
+
+/* Add a grey background color to the top navigation */
+.navbar {
+    background-color: #5a6563;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .navbar a {
+    float: left;
+    color: #fafafa;
+    text-align: center;
+    padding: 30px 25px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    background-color: #fafafa;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .navbar a.active {
+    color: #fafafa;
+    background-color: #5a6563;
+	}
 </style>

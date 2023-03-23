@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+definePageMeta({
+	layout: "loginreg",
+})
+
 const form = ref<HTMLFormElement>()
 
 async function onSubmit() {
