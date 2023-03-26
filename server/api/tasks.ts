@@ -8,7 +8,7 @@ export default defineEventHandler(async event => {
         //where: {},
         include: {
             project: true,
-            assignee: true
+            assignees: true
         }
     })
 })
