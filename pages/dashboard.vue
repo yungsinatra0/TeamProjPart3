@@ -1,4 +1,11 @@
 <script setup lang="ts">
+
+async function fillDatabase(){
+  await $fetch("/api/generator", {}) //call generator file to fill database with dummy data
+
+}
+
+
 </script>
 
 <template>
@@ -11,6 +18,11 @@
 	<div class="box2">insert text</div>
 
 	<div class="box3">insert text</div>
+
+  <div class = "generatorFile">
+    <button id="generator" onclick="fillDatabase()">Fill Database</button> <!-- click button to fill database with dummy data -->
+  </div>
+
 </template>
 <!-- <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
