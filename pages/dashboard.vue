@@ -2,15 +2,8 @@
 
 //call generator file to fill database with dummy data
 async function fillDatabase(){
-  const result = useFetch("/api/generator", { 
-    method: "GET"
-  }) 
-
-  console.log(result) //log user 0
-
+  await useFetch("/api/generator") 
 }
-
-
 
 </script>
 
