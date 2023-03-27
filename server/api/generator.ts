@@ -2,7 +2,130 @@ import prisma from "@/prisma"
 
 export default defineEventHandler(async event => {
     const query = getQuery(event) // If there is a query string, it will be parsed and returned as an object.
-    
+
+    const users = await prisma.$transaction([
+        prisma.user.create({
+            data: {
+                name: "Scott",
+                password: "1234",                
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Vladimir",
+                password: "123456",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Neumann",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "King",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Queen",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Harry",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Katie",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Rachael",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Callum",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Aaron",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Elliot",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Tom",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Ben",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Amy",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Jack",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Neil",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Bob",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Maddie",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Cole",
+                password: "testing",
+            }
+        }),
+        prisma.user.create({
+            data: {
+                name: "Tony",
+                password: "testing",
+            }
+        }),
+    ])
+
     const projects = await prisma.$transaction([ // Transaction is a set of multiple operations (e.g. create, update, delete) that are executed in a single database transaction.
         prisma.project.create({
             data: {
@@ -341,128 +464,7 @@ export default defineEventHandler(async event => {
         
     ])
 
-    const users = await prisma.$transaction([
-        prisma.user.create({
-            data: {
-                name: "Scott",
-                password: "1234",                
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Vladimir",
-                password: "123456",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Neumann",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "King",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Queen",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Harry",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Katie",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Rachael",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Callum",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Aaron",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Elliot",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Tom",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Ben",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Amy",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Jack",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Neil",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Bob",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Maddie",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Cole",
-                password: "testing",
-            }
-        }),
-        prisma.user.create({
-            data: {
-                name: "Tony",
-                password: "testing",
-            }
-        }),
-    ])
+    
 
     const tasks = await prisma.$transaction([
         prisma.task.create({
