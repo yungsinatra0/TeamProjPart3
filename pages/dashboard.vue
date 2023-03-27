@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
 async function fillDatabase(){
-  await $fetch("/api/generator", {}) //call generator file to fill database with dummy data
+  const result = await $fetch("/api/generator", {}) //call generator file to fill database with dummy data
 
+  console.log(result.users)
 }
+
 
 
 </script>
@@ -20,7 +22,7 @@ async function fillDatabase(){
 	<div class="box3">insert text</div>
 
   <div class = "generatorFile">
-    <button id="generator" onclick="fillDatabase()">Fill Database</button> <!-- click button to fill database with dummy data -->
+    <button @click="fillDatabase() ">Fill Database</button> <!-- click button to fill database with dummy data -->
   </div>
 
 </template>

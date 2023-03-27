@@ -8,23 +8,22 @@ export default defineEventHandler(async event => {
             data: {
                 name: "Project 1",
                 tasks: {
-                    create: [ 
+                    create: [
                         {
                         name: "Task 1",
                         description: "Task 1 description",
                         created: new Date(),
                         workHours: 10,
-                        assignees: { connect: [{ name: "Neumann" }] },
+                        assignees: { connect: [{ name: "Neumann" }]}
                         },
                         {
-                        name: "Task2",
+                        name: "Task 2",
                         description: "Task 2 description",
                         created: new Date(),
                         workHours: 50,
-                        assignees: {connect: [{ name: "Scott"}]},
-                        }
+                        assignees: { connect: [{ name: "Scott"}]}
+                        }    
                         ]
-                    
                 },
                 users: { connect: [ { name: "Neumann" }, {name: "Scott"} ] }, // Connect to existing users, for example using their name
             },

@@ -54,6 +54,7 @@ model Task {
   projectId Int?
 }
 
+
 model Project {
   uid       Int      @id @default(autoincrement())
   name      String
