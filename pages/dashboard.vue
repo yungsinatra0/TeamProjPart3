@@ -6,7 +6,7 @@ async function fillDatabase(){
     method: "GET"
   }) 
 
-  console.log(result) //log user 0
+  console.log(result)
 
 }
 
