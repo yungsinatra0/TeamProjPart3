@@ -1,9 +1,13 @@
 <script setup lang="ts">
 
+//call generator file to fill database with dummy data
 async function fillDatabase(){
-  const result = await $fetch("/api/generator", {}) //call generator file to fill database with dummy data
+  const result = await $fetch("/api/generator", { 
+    method: "GET"
+  }) 
 
-  console.log(result.users)
+  console.log(result.users[0]) //log user 0
+
 }
 
 
