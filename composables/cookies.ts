@@ -7,4 +7,5 @@ export function createCookie(user: User) {
 
 export function deleteCookie() {
     document.cookie = `uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+    navigateTo('/login')
 }

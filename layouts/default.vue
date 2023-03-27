@@ -10,7 +10,7 @@
         </div>
 
         <div>
-            <button class="button button3" style="width: 24px; text-align:center; vertical-align:middle">LOGOUT</button>
+            <button class="button button3" style="width: 24px; text-align:center; vertical-align:middle" @click="deleteCookie">LOGOUT</button>
         </div>
     </div>
 
