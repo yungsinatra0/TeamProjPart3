@@ -3,6 +3,12 @@ import prisma from "@/prisma"
 export default defineEventHandler(async event => {
     const query = getQuery(event) // If there is a query string, it will be parsed and returned as an object.
 
+    const clear = await prisma.$transaction([
+        prisma.user.deleteMany(),
+        prisma.project.deleteMany(),
+        prisma.task.deleteMany(),
+    ])
+    
     const users = await prisma.$transaction([
         prisma.user.create({
             data: {
@@ -653,6 +659,7 @@ export default defineEventHandler(async event => {
 
     // Run all the transactions
     return {
+        clear,
         projects,
         users,
         tasks
