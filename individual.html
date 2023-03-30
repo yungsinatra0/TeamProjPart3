@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Individual performace metrics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>></script>
+  </head>
+  <body>
+    <button onclick="window.location.href='index.html'">Back</button>
+    <div>
+      <canvas id="graph1"></canvas>
+      <canvas id="graph2"></canvas>
+      <canvas id="graph3"></canvas>
+    </div>
+    <script>
+      // create first chart
+      var x1 = document.getElementById('graph1').getContext('2d');
+      var chart1 = new Chart(x1, {
+        type: 'bar',
+        data: {
+          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          datasets: [{
+            label: 'Number of tasks completed in a week',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+      // create second chart
+      var x2 = document.getElementById('graph2').getContext('2d');
+      var chart2 = new Chart(x2, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [{
+            label: 'Individual performance this month',
+            data: [10, 15, 20, 12, 8, 5],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+
+       // create third chart
+       var x1 = document.getElementById('graph3').getContext('2d');
+      var chart1 = new Chart(x1, {
+        type: 'bar',
+        data: {
+          labels: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          datasets: [{
+            label: 'Number of pending tasks in a week',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+
