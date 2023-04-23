@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-  
-   
+    
     <button @click="individualPerformance">{{ buttontext }}</button>
-  
     <bar-chart v-if="displayChart" :chart-data="chartData" :options="chartOptions"></bar-chart>
+
+    <button @click="teamPerformance">{{ buttontext }}</button>
+    <bar-chart v-if="displayTeamChart" :chart-data="chartData" :options="chartOptions"></bar-chart>
   </div>
 </template>
 
 <script>
 import BarChart from './components/BarChart.vue';
-
 export default {
   name: 'App',
   components: {
@@ -51,7 +51,17 @@ export default {
         this.buttontext = "Click here to view individual performance"
       }
     
-    }
+    },
+    teamPerformance(){
+      this.displayTeamChart=!this.displayTeamChart;
+      if(this.displayTeamChart)
+      {
+        this.buttontext="close"
+      }
+      else{
+        this.buttontext="click here to view team performance"
+      }
+    },
   }
 };
 
