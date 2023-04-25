@@ -24,7 +24,7 @@
 .navbar {
   height: 15%;
   width: 100%;
-  position: absolute;
+  /* position: absolute; Causes the navbar to be on top of the page, needs fixing */
   top: 0;
   background-color: #111;
   overflow-x: hidden;
