@@ -6,6 +6,9 @@ export default defineEventHandler(async event => {
     // Returns all projects in the database.
     return await prisma.project.findMany({
         //where: {},
-        // include: {}
+        include: {
+            tasks: true,
+            users: true
+        }
     })
 })
