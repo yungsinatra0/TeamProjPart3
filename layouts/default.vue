@@ -4,7 +4,7 @@
 <template>
     <div>
         <div id="myNav" class="navbar">
-            <NuxtLink :to="`/chat`"> <button class="button button1">TEXT CHAT</button> </NuxtLink>
+            <NuxtLink :to="`/lobby`"> <button class="button button1">TEXT CHAT</button> </NuxtLink>
             
             <NuxtLink :to="`/data`"> <button class="button button2">DATA ANALYTICS</button> </NuxtLink>
         </div>
