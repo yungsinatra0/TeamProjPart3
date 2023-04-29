@@ -14,8 +14,10 @@ const users = computed(() => props.room.users.map((user) => user.name).join(", "
 
 <template>
 
-<div class="chatBubble">
-    <h1>Chat with: {{ users }}</h1>
+<div class="roomBubble">
+    <div class="roomUsers">
+        <h1>Chat with: {{ users }}</h1>
+    </div>
 
     <NuxtLink :to="`/chat/${room.uid}`">
         <h1> Access chat room</h1>
@@ -26,12 +28,16 @@ const users = computed(() => props.room.users.map((user) => user.name).join(", "
 
 <style>
 
-.chatBubble {
+.roomBubble {
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.roomUsers {
+    
 }
 
 </style>
