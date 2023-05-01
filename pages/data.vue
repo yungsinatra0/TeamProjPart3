@@ -15,8 +15,8 @@
 		<DataBar :label="'Project 1'" :data="projectTasks" v-if="displayProj1"></DataBar>
 		<DataBar :label="'Project 2'" :data="projectUsers" v-if="displayProj2"></DataBar>
 
+		<!-- <DataPie :label="'Test Pie Chart'" :data="projectTasks" v-if="testPieChart"></DataPie> -->
 
-		
 	</div>
 </template>
 
@@ -32,6 +32,8 @@ const { data: projects } = await useFetch("/api/projects") // get all the projec
 const displayIndividual = ref(true)
 const displayProj1 = ref(true)
 const displayProj2 = ref(false)
+
+const testPieChart = ref(true)
 
 const buttontext = ref("Number of users per project")
 
@@ -57,7 +59,6 @@ function selectProject(event: any){
 const userTasks = computed(() => {
 	const usersAndTasks: { [key: string]: number } = {}
 
-	
 })
 
 
