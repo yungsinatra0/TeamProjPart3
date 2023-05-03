@@ -7,8 +7,7 @@
         </div>
         <div class="textEntry">
           <input class="textInput">
-            
-          </input>
+            </input>
         <button class="EnterButton">Enter
     </button>
         
