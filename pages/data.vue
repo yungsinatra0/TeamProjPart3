@@ -5,7 +5,7 @@
 		<DataBar :label="'Number of users per project'" :data="projectUsers" v-else></DataBar>
 
 		<div id="dropdown">
-			<select @change="selectProject($event)">
+			<select id="selectBox" @change="selectProject($event)">
 				<option value="project1">Project 1</option>
 				<option value="project2">Project 2</option>
 			</select>
@@ -17,16 +17,18 @@
 
 		<!-- <DataPie :label="'Test Pie Chart'" :data="projectTasks" v-if="testPieChart"></DataPie> -->
 
+		<DataBar :label="'Test Pie Chart'" :data="userTasks" v-if="testPieChart"></DataBar>
+
 	</div>
 </template>
 
 <script setup lang="ts">
-import tasks from '~/server/api/tasks'
+//import tasks from '~/server/api/tasks'
 
 
 const { data: currentUser } = await getCurrentUser() // get the current user from the server using the cookie
 const { data: projects } = await useFetch("/api/projects") // get all the projects from the server
-// const { data: tasks } = await useFetch("/api/tasks") // get all the tasks from the server
+const { data: tasks } = await useFetch("/api/tasks") // get all the tasks from the server
 // const { data: users } = await useFetch("/api/users") // get all the users from the server
 
 const displayIndividual = ref(true)
@@ -36,6 +38,9 @@ const displayProj2 = ref(false)
 const testPieChart = ref(true)
 
 const buttontext = ref("Number of users per project")
+
+let selected = "project1";
+
 
 function toggleChart() {
 	displayIndividual.value = !displayIndividual.value
@@ -47,10 +52,12 @@ function selectProject(event: any){
 	if (event.target.value == "project1"){
 		displayProj2.value = false
 		displayProj1.value = true
+		selected = "Project 1"
 	}
 	else if (event.target.value == "project2"){
 		displayProj1.value = false
-		displayProj2.value = true	
+		displayProj2.value = true
+		selected = "Project 2"	
 	}
 	
 }
@@ -59,6 +66,23 @@ function selectProject(event: any){
 const userTasks = computed(() => {
 	const usersAndTasks: { [key: string]: number } = {}
 
+	for (const project of projects.value!){
+		if (project.name == "Project 1") {
+			for (const user of project.users) {
+				let numberTasks = 0;
+				// loop thru tasks
+				// if user name is in assignees for that task, increase by 1
+
+				for (const task of tasks.value!){
+					if (task.assignees.includes(user)){
+						numberTasks++
+					}
+				}
+				usersAndTasks[user.name] =  numberTasks // here you put variabel you increase
+			}
+		}
+	}
+	return usersAndTasks
 })
 
 
