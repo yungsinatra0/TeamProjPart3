@@ -29,7 +29,7 @@ const chartData = computed(() => {
 				label: props.label,
 				data: [...Object.values(props.data)], // get data from data prop (the values of the object)
 				//Other options for the chart go in here, such as: maxBarThickness, backgroundColor, etc.
-				backgroundColor: "#30D5C8"
+				backgroundColor: "#AE00FF"
 			},
 		],
 	}
