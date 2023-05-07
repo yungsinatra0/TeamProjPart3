@@ -7,8 +7,8 @@ export default defineEventHandler(async event => {
 		where: { name: body.name as string },  // Find user by their email address.
 	})
 
-	if (user === null) return null
-	if (user!.password !== body.password as string) return null
+	if (user === null) return {response: 404, body: "User not found"}
+	if (user!.password !== body.password as string) return {response: 401, body: "Incorrect password"}
 
-    return user // Returns the user's data as an object.
+    return {response: 200, body: user} // Returns the user's data as an object.
 })

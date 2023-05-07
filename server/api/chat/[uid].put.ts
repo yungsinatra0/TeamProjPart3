@@ -17,8 +17,10 @@ export default defineEventHandler(async event => {
 		}
 	})
 
-	return await prisma.chat.update({
+	const result = await prisma.chat.update({
 		where: { uid: +(event.context.params.id as string) },
 		data: { messages: { connect: { uid: message.uid} } },
 	})
+
+	return { status: 200, body: result}
 })
