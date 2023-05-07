@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
 		<button @click="toggleChart">{{ buttontext }}</button>
-		<DataBar2 :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBar2>
-		<DataBar2 :label="'Number of users per project'" :data="projectUsers" v-else></DataBar2>
+		<DataBarTasks :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBarTasks>
+		<DataBarUsers :label="'Number of users per project'" :data="projectUsers" v-else></DataBarUsers>
 
 		<div id="dropdown">
 			<select id="selectBox" @change="selectProject($event)">
@@ -19,21 +19,21 @@
 			</select>
 		</div>
 
-		<DataBar :label="'Project 1 - Total Tasks for Each Member'" :data="userTasks" v-if="pageLoading"></DataBar>
-		<DataPie :label="'Total Assigned Hours for Each Member'" :data="usersHours" v-if="pageLoading"></DataPie>
+		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="userTasks" v-if="pageLoading"></DataPie>
+		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersHours" v-if="pageLoading"></DataBar>
 
-		<DataBar :label="'Project 1 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj1"></DataBar>
-		<DataBar :label="'Project 2 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj2"></DataBar>
-		<DataBar :label="'Project 3 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj3"></DataBar>
-		<DataBar :label="'Project 4 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj4"></DataBar>
-		<DataBar :label="'Project 5 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj5"></DataBar>
-		<DataBar :label="'Project 6 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj6"></DataBar>
-		<DataBar :label="'Project 7 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj7"></DataBar>
-		<DataBar :label="'Project 8 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj8"></DataBar>
-		<DataBar :label="'Project 9 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj9"></DataBar>
-		<DataBar :label="'Project 10 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj10"></DataBar>
+		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj1"></DataPie>
+		<DataPie :label="'Project 2 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj2"></DataPie>
+		<DataPie :label="'Project 3 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj3"></DataPie>
+		<DataPie :label="'Project 4 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj4"></DataPie>
+		<DataPie :label="'Project 5 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj5"></DataPie>
+		<DataPie :label="'Project 6 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj6"></DataPie>
+		<DataPie :label="'Project 7 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj7"></DataPie>
+		<DataPie :label="'Project 8 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj8"></DataPie>
+		<DataPie :label="'Project 9 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj9"></DataPie>
+		<DataPie :label="'Project 10 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj10"></DataPie>
 
-		<DataPie :label="'Total Assigned Hours for Each Member'" :data="usersWithHours" v-if="displayPie"></DataPie>
+		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersWithHours" v-if="displayPie"></DataBar>
 
 		
 
@@ -229,9 +229,9 @@ function usersHoursFunction(){
 						}
 					}
 				}
-				if(hours > 300){
-					alert(user.name +" assigned too many hours")
-				}
+				// if(hours > 300){
+				// 	alert(user.name +" assigned too many hours")
+				// }
 				usersAndHours[user.name] =  hours // here you put variabel you increase
 			}
 		}
