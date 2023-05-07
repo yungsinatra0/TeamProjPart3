@@ -5,7 +5,7 @@ export default defineEventHandler(async event => {
 	const senderId = body.sender as string
 
 	const result = await prisma.chat.update({
-		where: { uid: +(event.context.params.id as string) },
+		where: { uid: +(event.context.params.uid as string) },
 		data: { users : { disconnect: { uid: senderId} } },
 	})
 
