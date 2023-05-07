@@ -29,7 +29,7 @@ const chartData = computed(() => {
 				label: props.label,
 				data: [...Object.values(props.data)], // get data from data prop (the values of the object)
 				//Other options for the chart go in here, such as: maxBarThickness, backgroundColor, etc.
-				backgroundColor: "#30D5C8"
+				backgroundColor: "#AE00FF"
 			},
 		],
 	}
@@ -57,9 +57,9 @@ const chartOptions = computed(() => {
 				}, 
 				
 				ticks: {
-					//color: "black",
+					//color: "red",
 					// ticks options for y axis. example: display, color, etc
-					color: (c: any) => {if(c['tick']['value'] >= 300) return 'red'; else return 'black';}
+					color: (c: any) => {if(c['tick']['value'] <= 3) return 'red'; else return 'black';}
 				}, 
 			},
 		},
