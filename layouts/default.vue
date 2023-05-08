@@ -2,7 +2,7 @@
 
 <template>
 	<div>
-		<div id="myNav" class="navbar">
+		<div class="navbar">
 			<NuxtLink :to="`/chat`">
 				<button class="button button1">TEXT CHAT</button>
 			</NuxtLink>
@@ -10,9 +10,7 @@
 			<NuxtLink :to="`/data`">
 				<button class="button button2">DATA ANALYTICS</button>
 			</NuxtLink>
-		</div>
 
-		<div>
 			<button
 				class="button button3"
 				style="width: 24px; text-align: center; vertical-align: middle"
@@ -28,12 +26,12 @@
 
 <style>
 /* navigation bar */
-
 .navbar {
 	height: 15%;
 	width: 100%;
-	position: absolute;
-	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 	background-color: #111;
 	overflow-x: hidden;
 }
@@ -79,9 +77,7 @@
 	font-size: 8pt;
 	margin-top: 1px;
 	margin-right: 1px;
-	position: absolute;
-	top: 0;
-	right: 0;
+	padding-right: 64px;
 	background-color: white;
 	color: black;
 }
