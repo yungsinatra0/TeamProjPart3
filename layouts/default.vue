@@ -1,33 +1,41 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <div>
-        <div id="myNav" class="navbar">
-            <NuxtLink :to="`/lobby`"> <button class="button button1">TEXT CHAT</button> </NuxtLink>
-            
-            <NuxtLink :to="`/data`"> <button class="button button2">DATA ANALYTICS</button> </NuxtLink>
-        </div>
+	<div>
+		<div id="myNav" class="navbar">
+			<NuxtLink :to="`/chat`">
+				<button class="button button1">TEXT CHAT</button>
+			</NuxtLink>
 
-        <div>
-            <button class="button button3" style="width: 24px; text-align:center; vertical-align:middle" @click="deleteCookie">LOGOUT</button>
-        </div>
-    </div>
+			<NuxtLink :to="`/data`">
+				<button class="button button2">DATA ANALYTICS</button>
+			</NuxtLink>
+		</div>
 
-    <slot></slot>
+		<div>
+			<button
+				class="button button3"
+				style="width: 24px; text-align: center; vertical-align: middle"
+				@click="deleteCookie"
+			>
+				LOGOUT
+			</button>
+		</div>
+	</div>
+
+	<slot></slot>
 </template>
 
 <style>
-
 /* navigation bar */
- 
+
 .navbar {
-  height: 15%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  background-color: #111;
-  overflow-x: hidden;
+	height: 15%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-color: #111;
+	overflow-x: hidden;
 }
 
 /* button style */
@@ -50,7 +58,7 @@
 }
 
 .button1:hover {
-	background-color: #4CAF50;
+	background-color: #4caf50;
 	color: white;
 }
 
@@ -61,19 +69,19 @@
 }
 
 .button2:hover {
-	background-color: #4CAF50;
+	background-color: #4caf50;
 	color: white;
 }
 
 .button3 {
-    line-height: 3px;
-    width: 4px;
-    font-size: 8pt;
-    margin-top: 1px;
-    margin-right: 1px;
-    position:absolute;
-    top:0;
-	right:0;
+	line-height: 3px;
+	width: 4px;
+	font-size: 8pt;
+	margin-top: 1px;
+	margin-right: 1px;
+	position: absolute;
+	top: 0;
+	right: 0;
 	background-color: white;
 	color: black;
 }
@@ -82,5 +90,4 @@
 	background-color: blue;
 	color: white;
 }
-
 </style>
