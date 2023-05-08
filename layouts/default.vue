@@ -27,7 +27,7 @@
 <style>
 /* navigation bar */
 .navbar {
-	height: 15%;
+	height: 10vh;
 	width: 100%;
 	display: flex;
 	align-items: center;

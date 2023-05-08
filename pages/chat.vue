@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User, Message } from ".prisma/client"
+
 const { data: currentUser } = getCurrentUser()
 
 const { data: rooms } = await useFetch("/api/chats", {
@@ -10,12 +11,20 @@ const { data: rooms } = await useFetch("/api/chats", {
 	},
 })
 
+let message = ref("")
+let currentChat = ref(0)
+let messages = ref<MessageUser[]>([])
+
+//TODO: Add scrolling to the bottom of the chat when a new message is sent & Set scrollbar to bottom
+
 async function fetchChat(chatId: number) {
+	currentChat.value = chatId
+
 	const { data: chat } = await useFetch(`/api/chat/${chatId}`, {
 		method: "GET",
 	})
 
-	console.log(chat.value!)
+	messages.value = chat.value!.messages
 }
 
 function toString(members: User[]) {
@@ -30,13 +39,32 @@ function getLastMessage(messages: Message[]): string {
 	return messages[messages.length - 1].content
 }
 
-function sendMessage() {
+async function sendMessage() {
 	// Take input from textInput and send it to the server
+	const { data: response } = await useFetch(`/api/chat/${currentChat.value}`, {
+		method: "PUT",
+		body: {
+			sender: currentUser.value!.body!.uid,
+			message: message.value,
+		},
+	})
+
+	// Clear the input
+	message.value = ""
 }
+
+function isCurrentUserMessage(sender: string) {
+	return sender === currentUser.value!.body!.uid
+}
+
+// Every second, fetch the chat again
+setInterval(() => {
+	fetchChat(currentChat.value)
+}, 500)
 </script>
 
 <template>
-	<div>
+	<div class="chat-container">
 		<div class="searchBar">
 			<ChatList
 				v-for="room in rooms"
@@ -47,9 +75,24 @@ function sendMessage() {
 			/>
 		</div>
 		<div class="textChat">
-			<div class="textDisplay"></div>
+			<div class="textDisplay">
+				<ChatMessage
+					v-for="message in messages"
+					:sender="message.sender.name"
+					:message="message.content"
+					:is-current-user="isCurrentUserMessage(message.senderId)"
+					:timestamp="message.created"
+					:class="[
+						isCurrentUserMessage(message.senderId) ? 'is-current-user' : '',
+						'message',
+					]"
+				/>
+				<p v-if="currentChat == 0" class="no-chat">
+					Choose a chat to start messaging!
+				</p>
+			</div>
 			<div class="textEntry">
-				<input class="textInput" />
+				<input class="textInput" v-model="message" />
 				<button class="EnterButton" @click="sendMessage">Enter</button>
 			</div>
 		</div>
@@ -64,51 +107,75 @@ function sendMessage() {
 	--sectionColor: #385170;
 }
 
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.no-chat {
+	color: #777;
+	font-style: italic;
+}
+
+.chat-container {
+	display: flex;
+	height: 90vh;
+}
+
 .searchBar {
-	position: absolute;
-	left: 0;
-	top: 2.5%;
+	display: flex;
+	flex-direction: column;
 	width: 30%;
-	height: 95%;
+	height: 100%;
 	background-color: var(--background);
+	overflow-y: auto;
 }
+
 .textChat {
-	position: absolute;
-	left: 30%;
-	top: 2.5%;
 	width: 70%;
-	height: 95%;
+	max-height: 90vh;
 	background-color: var(--sectionColor);
+	display: flex;
+	flex-direction: column;
 }
+
 .textDisplay {
-	position: absolute;
-	left: 5%;
-	top: 5%;
-	width: 90%;
-	height: 70%;
+	flex-grow: 1;
 	background-color: var(--element);
+	overflow-y: scroll;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh;
+	scroll-behavior: smooth; /* added */
 }
+
+.textDisplay .message {
+	margin: 5px 0;
+}
+
+.textDisplay .message.is-current-user {
+	align-self: flex-end;
+}
+
 .textEntry {
-	position: absolute;
-	left: 5%;
-	top: 80%;
-	width: 90%;
-	height: 15%;
 	background-color: var(--element);
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
+
 .textInput {
-	position: absolute;
-	left: 2.5%;
-	top: 5%;
-	width: 80%;
-	height: 80%;
+	flex-grow: 1;
+	margin-right: 1rem;
+	height: 5ch;
 }
+
 .EnterButton {
-	position: absolute;
-	left: 85%;
-	top: 5%;
-	width: 12.5%;
-	height: 85%;
 	background-color: var(--button);
+	width: 5rem;
+	height: 100%;
 }
 </style>
