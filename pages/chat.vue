@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { User, Message } from ".prisma/client"
 const { data: currentUser } = getCurrentUser()
 
 const { data: rooms } = await useFetch("/api/chats", {
@@ -13,17 +14,43 @@ async function fetchChat(chatId: number) {
 	const { data: chat } = await useFetch(`/api/chat/${chatId}`, {
 		method: "GET",
 	})
+
+	console.log(chat.value!)
+}
+
+function toString(members: User[]) {
+	return members.map(member => member.name).join(", ")
+}
+
+function getLastMessage(messages: Message[]): string {
+	if (messages.length === 0) {
+		return "No messages yet"
+	}
+	// May change this later to use timestamps
+	return messages[messages.length - 1].content
+}
+
+function sendMessage() {
+	// Take input from textInput and send it to the server
 }
 </script>
 
 <template>
 	<div>
-		<div class="searchBar"></div>
+		<div class="searchBar">
+			<ChatList
+				v-for="room in rooms"
+				:key="room.uid"
+				:members="toString(room.users)"
+				:last-message="getLastMessage(room.messages)"
+				@click="fetchChat(room.uid)"
+			/>
+		</div>
 		<div class="textChat">
 			<div class="textDisplay"></div>
 			<div class="textEntry">
 				<input class="textInput" />
-				<button class="EnterButton">Enter</button>
+				<button class="EnterButton" @click="sendMessage">Enter</button>
 			</div>
 		</div>
 	</div>

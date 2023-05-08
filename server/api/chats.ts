@@ -15,7 +15,8 @@ export default defineEventHandler(async event => {
             }
         },
         include: {
-            users: true
+            users: true,
+            messages: true
         }
     })
 })
