@@ -5,7 +5,15 @@ export default defineEventHandler(event => {
         where: { uid: +(event.context.params.uid as string) },
         include: {
             users: true,
-            messages: true
-        }
-    })
-})
+            messages: {
+                include: {
+                    sender: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+});
