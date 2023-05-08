@@ -1,9 +1,11 @@
 <script setup lang="ts">
-const currentUser = await getCurrentUser()
+const { data: currentUser } = getCurrentUser()
+
 const { data: rooms } = await useFetch("/api/chats", {
 	method: "GET",
 	query: {
-		uid: currentUser.data.value!.uid,
+		// If current user is null, this will be undefined, which is fine
+		uid: currentUser.value!.body!.uid,
 	},
 })
 
