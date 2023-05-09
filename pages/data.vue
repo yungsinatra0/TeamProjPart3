@@ -4,9 +4,10 @@
 		<DataBarTasks :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBarTasks>
 		<DataBarUsers :label="'Number of users per project'" :data="projectUsers" v-else></DataBarUsers>
 
-		<div id="dropdown">
-			<select id="selectBox" @change="selectProject($event)">
-				<option value="Project 1">Project 1</option>
+		<div id="projectsDropdown">
+			<select id="projectsSelectBox" @change="selectProject($event)">
+				<option v-for="project in projects">{{ project.name }}</option>
+				<!-- <option value="Project 1">Project 1</option>
 				<option value="Project 2">Project 2</option>
 				<option value="Project 3">Project 3</option>
 				<option value="Project 4">Project 4</option>
@@ -15,13 +16,13 @@
 				<option value="Project 7">Project 7</option>
 				<option value="Project 8">Project 8</option>
 				<option value="Project 9">Project 9</option>
-				<option value="Project 10">Project 10</option>
+				<option value="Project 10">Project 10</option> -->
 			</select>
 		</div>
 
 		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="userTasks" v-if="pageLoading"></DataPie>
 		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersHours" v-if="pageLoading"></DataBar>
-
+		
 		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj1"></DataPie>
 		<DataPie :label="'Project 2 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj2"></DataPie>
 		<DataPie :label="'Project 3 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj3"></DataPie>
@@ -35,7 +36,20 @@
 
 		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersWithHours" v-if="displayPie"></DataBar>
 
+	
 		
+		<div id="usersDropdown">
+			<select id="usersSelectBox" @change="selectUser($event)">
+				<option v-for="user in users">{{ user.name }}</option>
+			</select>
+		</div>
+
+		<DataUsersBarHours :label="'Users With Tasks Hours'" :data="tasksHours" v-if="pageUsersLoading"></DataUsersBarHours>
+		<DataLine :label="'Task and Number of Days to Deadline'" :data="tasksDeadlines" v-if="pageUsersLoading"></DataLine>
+
+		<DataUsersBarHours :label="'Users With Tasks Hours'" :data="tasksWithHours" v-if="displayLine"></DataUsersBarHours>
+		<DataLine :label="'Task and Number of Days to Deadline'" :data="tasksWithDeadlines" v-if="displayLine"></DataLine>
+
 
 	</div>
 </template>
@@ -45,9 +59,11 @@
 const { data: currentUser } = await getCurrentUser() // get the current user from the server using the cookie
 const { data: projects } = await useFetch("/api/projects") // get all the projects from the server
 const { data: tasks } = await useFetch("/api/tasks") // get all the tasks from the server
-// const { data: users } = await useFetch("/api/users") // get all the users from the server
+
+const { data: users } = await useFetch('/api/users')
 
 const pageLoading = ref(true)
+const pageUsersLoading = ref(true)
 const displayIndividual = ref(true)
 
 const proj1 = ref(false)
@@ -62,19 +78,23 @@ const proj9 = ref(false)
 const proj10 = ref(false)
 
 const displayPie = ref(false)
+const displayLine = ref(false)
+
 const buttontext = ref("Number of users per project")
 
-let selected = "Project 1"
+let projectSelected = "Project 1"
+let userSelected = "Katie"
 
 function toggleChart() {
 	displayIndividual.value = !displayIndividual.value
 	buttontext.value = displayIndividual.value ? "Number of users per project" : "Number of tasks per project"
 }
+
 function selectProject(event: any){
 	pageLoading.value = false
 	displayPie.value = true
 	if (event.target.value == "Project 1"){
-		selected = "Project 1"
+		projectSelected = "Project 1"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj2.value = proj3.value = proj4.value = 
@@ -83,7 +103,7 @@ function selectProject(event: any){
 		proj1.value = true
 	}
 	else if (event.target.value == "Project 2"){
-		selected = "Project 2"
+		projectSelected = "Project 2"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj3.value = proj4.value = 
@@ -92,7 +112,7 @@ function selectProject(event: any){
 		proj2.value = true
 	}
 	else if (event.target.value == "Project 3"){
-		selected = "Project 3"
+		projectSelected = "Project 3"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj4.value = 
@@ -101,7 +121,7 @@ function selectProject(event: any){
 		proj3.value = true
 	}
 	else if (event.target.value == "Project 4"){
-		selected = "Project 4"
+		projectSelected = "Project 4"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -110,7 +130,7 @@ function selectProject(event: any){
 		proj4.value = true
 	}
 	else if (event.target.value == "Project 5"){
-		selected = "Project 5"
+		projectSelected = "Project 5"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -119,7 +139,7 @@ function selectProject(event: any){
 		proj5.value = true
 	}
 	else if (event.target.value == "Project 6"){
-		selected = "Project 6"
+		projectSelected = "Project 6"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -128,7 +148,7 @@ function selectProject(event: any){
 		proj6.value = true
 	}
 	else if (event.target.value == "Project 7"){
-		selected = "Project 7"
+		projectSelected = "Project 7"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -137,7 +157,7 @@ function selectProject(event: any){
 		proj7.value = true
 	}
 	else if (event.target.value == "Project 8"){
-		selected = "Project 8"
+		projectSelected = "Project 8"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -146,7 +166,7 @@ function selectProject(event: any){
 		proj8.value = true
 	}
 	else if (event.target.value == "Project 9"){
-		selected = "Project 9"
+		projectSelected = "Project 9"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -155,7 +175,7 @@ function selectProject(event: any){
 		proj9.value = true
 	}
 	else if (event.target.value == "Project 10"){
-		selected = "Project 10"
+		projectSelected = "Project 10"
 		usersTasksFunction()
 		usersHoursFunction()
 		proj1.value = proj2.value = proj3.value = 
@@ -166,11 +186,21 @@ function selectProject(event: any){
 	
 }
 
+
+function selectUser(event: any){
+	pageUsersLoading.value = false
+	displayLine.value = false
+	userSelected = event.target.value
+	tasksWithHours = tasksHoursFunction()
+	tasksWithDeadlines = tasksDeadlinesFunction()
+	displayLine.value = true
+}
+
 let usersWithTasks:  { [key: string]: number } = {} 
 function usersTasksFunction(){
 	const usersAndTasks: { [key: string]: number } = {}
 	for (const project of projects.value!){
-		if (project.name == selected) {
+		if (project.name == projectSelected) {
 			for (const user of project.users) {
 				let numberTasks = 0;
 				
@@ -197,7 +227,7 @@ function usersTasksFunction(){
 let userTasks = computed(() => {
 	const usersAndTasks: { [key: string]: number } = {}
 	for (const project of projects.value!){
-		if (project.name == selected) {
+		if (project.name == projectSelected) {
 			for (const user of project.users) {
 				let numberTasks = 0;
 				for (const task of tasks.value!) {
@@ -219,7 +249,7 @@ let usersWithHours:  { [key: string]: number } = {}
 function usersHoursFunction(){
 	const usersAndHours: { [key: string]: number } = {}
 	for (const project of projects.value!){
-		if (project.name == selected) {
+		if (project.name == projectSelected) {
 			for (const user of project.users) {
 				let hours = 0
 				for (const task of tasks.value!) {		
@@ -229,9 +259,6 @@ function usersHoursFunction(){
 						}
 					}
 				}
-				// if(hours > 300){
-				// 	alert(user.name +" assigned too many hours")
-				// }
 				usersAndHours[user.name] =  hours // here you put variabel you increase
 			}
 		}
@@ -244,7 +271,7 @@ function usersHoursFunction(){
 let usersHours = computed(() => {
 	const usersAndHours: { [key: string]: number } = {}
 	for (const project of projects.value!){
-		if (project.name == selected) {
+		if (project.name == projectSelected) {
 			for (const user of project.users) {
 				let hours = 0
 				for (const task of tasks.value!) {		
@@ -260,6 +287,83 @@ let usersHours = computed(() => {
 	}
 	return usersAndHours
 })
+
+
+
+let tasksWithHours:  { [key: string]: number } = {} 
+function tasksHoursFunction(){
+	const tasksAndHours: { [key: string]: number } = {}
+	for (const task of tasks.value!){
+		let hours = 0
+		for (const user of task.assignees) {
+			if (user.name == userSelected){
+				hours += task.workHours
+				tasksAndHours[task.name] = hours 
+			}
+		}
+		
+	}
+	return tasksAndHours
+}
+
+let tasksHours = computed(() => {
+	const tasksAndHours: { [key: string]: number } = {}
+	for (const task of tasks.value!){
+		let hours = 0
+		for (const user of task.assignees) {
+			if (user.name == userSelected){
+				hours += task.workHours
+				tasksAndHours[task.name] = hours 
+			}
+		}
+		
+	}
+	return tasksAndHours
+})
+
+
+
+
+let tasksWithDeadlines:  { [key: string]: number } = {} 
+function tasksDeadlinesFunction(){
+	const tasksAndDeadlines: { [key: string]: number } = {}
+	let oneDay = 24 * 60 * 60 * 1000
+	const today = new Date()
+	for (const task of tasks.value!){
+		for (const user of task.assignees) {
+			if (user.name == userSelected){
+				const deadline = new Date(task.dueDate)
+				const daysToDeadline = Math.round(Math.abs((today.getTime() - deadline.getTime()) / oneDay))
+				tasksAndDeadlines[task.name] = daysToDeadline 
+			}
+		}
+		
+	}
+	return tasksAndDeadlines
+}
+
+
+
+let tasksDeadlines = computed(() => {
+	const tasksAndDeadlines: { [key: string]: number } = {}
+	let oneDay = 24 * 60 * 60 * 1000
+	const today = new Date()
+	for (const task of tasks.value!){
+		for (const user of task.assignees) {
+			if (user.name == userSelected){
+				const deadline = new Date(task.dueDate)
+				const daysToDeadline = Math.round(Math.abs((today.getTime() - deadline.getTime()) / oneDay))
+				tasksAndDeadlines[task.name] = daysToDeadline 
+			}
+		}
+		
+	}
+	return tasksAndDeadlines
+})
+
+
+
+
 
 
 // get number of tasks per project
