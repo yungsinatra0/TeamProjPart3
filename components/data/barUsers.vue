@@ -21,19 +21,33 @@ const props = defineProps<{
 	label: string
 }>()
 
+// const chartData = computed(() => {
+// 	return {
+// 		labels: Object.keys(props.data), // get labels from data prop (the keys of the object)
+// 		datasets: [
+// 			{
+// 				label: props.label,
+// 				data: [...Object.values(props.data)], // get data from data prop (the values of the object)
+// 				//Other options for the chart go in here, such as: maxBarThickness, backgroundColor, etc.
+// 				backgroundColor: "#AE00FF"
+// 			},
+// 		],
+// 	}
+// })
+
 const chartData = computed(() => {
-	return {
-		labels: Object.keys(props.data), // get labels from data prop (the keys of the object)
-		datasets: [
-			{
-				label: props.label,
-				data: [...Object.values(props.data)], // get data from data prop (the values of the object)
-				//Other options for the chart go in here, such as: maxBarThickness, backgroundColor, etc.
-				backgroundColor: "#AE00FF"
-			},
-		],
-	}
-})
+  const data = Object.values(props.data);
+  return {
+    labels: Object.keys(props.data), 
+    datasets: [
+      {
+        label: props.label,
+        data,
+        backgroundColor: data.map(value => value <= 2  ? 'red' : '#AE00FF')
+      }
+    ]
+  }
+});
 
 const chartOptions = computed(() => {
 	return {
@@ -57,9 +71,9 @@ const chartOptions = computed(() => {
 				}, 
 				
 				ticks: {
-					//color: "red",
+					color: "black",
 					// ticks options for y axis. example: display, color, etc
-					color: (c: any) => {if(c['tick']['value'] <= 3) return 'red'; else return 'black';}
+					//color: (c: any) => {if(c['tick']['value'] <= 3) return 'red'; else return 'black';}
 				}, 
 			},
 		},

@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { Bar } from "vue-chartjs" // importing chart type from vue-chartjs. ctrl+click on <Bar> in <template> to see other components are avaialbe or check the vue-chartjs docs
+import { Line } from "vue-chartjs" // importing chart type from vue-chartjs. ctrl+click on <Bar> in <template> to see other components are avaialbe or check the vue-chartjs docs
 import {
-	Chart as ChartJS,
-	Title,
-	Tooltip,
-	Legend,
-	BarElement,
-	CategoryScale,
-	LinearScale,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
 } from "chart.js" // Necessary imports for some reason
 import { Project, Task, User } from ".prisma/client" // importing the User type from types/user.ts
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale) // Need to register these otherwise you get an error
-
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const props = defineProps<{
 	data: {
-		[key: string]: number // data prop is an object with keys of type string and values of type User[] | Project[] | Task[]
+		[key: string]: number 
 	},
 	label: string
 }>()
@@ -29,11 +29,12 @@ const props = defineProps<{
 // 				label: props.label,
 // 				data: [...Object.values(props.data)], // get data from data prop (the values of the object)
 // 				//Other options for the chart go in here, such as: maxBarThickness, backgroundColor, etc.
-// 				backgroundColor: "#30D5C8"
+// 				backgroundColor: "#00FFB2"
 // 			},
 // 		],
 // 	}
 // })
+
 
 const chartData = computed(() => {
   const data = Object.values(props.data);
@@ -43,12 +44,11 @@ const chartData = computed(() => {
       {
         label: props.label,
         data,
-        backgroundColor: data.map(value => value > 300 ? 'red' : '#00FFB2')
+        backgroundColor: data.map(value => value <= 7  ? 'red' : '#00FFB2')
       }
     ]
   }
 });
-
 
 const chartOptions = computed(() => {
 	return {
@@ -74,7 +74,6 @@ const chartOptions = computed(() => {
 				ticks: {
 					color: "black",
 					// ticks options for y axis. example: display, color, etc
-					//color: (c: any) => {if(c['tick']['value'] >= 200) return 'red'; else return 'black';}
 				}, 
 			},
 		},
@@ -98,6 +97,6 @@ const chartStyles = computed(() => {
 </script>
 
 <template>
-	<Bar id="barChart" :options="chartOptions" :data="chartData" :style="chartStyles">
-	</Bar>
+	<Line id="lineChart" :options="chartOptions" :data="chartData" :style="chartStyles">
+    </Line>
 </template>

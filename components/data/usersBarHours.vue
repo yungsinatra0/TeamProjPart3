@@ -43,7 +43,7 @@ const chartData = computed(() => {
       {
         label: props.label,
         data,
-        backgroundColor: data.map(value => value > 300 ? 'red' : '#00FFB2')
+        backgroundColor: data.map(value => value >= 200 ? 'red' : '#00FFB2')
       }
     ]
   }
