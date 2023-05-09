@@ -11,9 +11,9 @@ datasource db {
 }
 
 // generator erd {
-//   provider                  = "prisma-erd-generator"
+//   provider = "prisma-erd-generator"
 //   includeRelationFromFields = true
-//   output                    = "./ERD.png"
+//   output   = "./ERD.png"
 // }
 
 model User {
