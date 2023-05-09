@@ -11,53 +11,52 @@ datasource db {
 }
 
 // generator erd {
-//   provider = "prisma-erd-generator"
+//   provider                  = "prisma-erd-generator"
 //   includeRelationFromFields = true
-//   output   = "./ERD.png"
+//   output                    = "./ERD.png"
 // }
 
 model User {
-  uid       String      @id @default(uuid())
-  name      String    @unique
-  password  String
-  team      Project[]
-  messages  Message[]
-  chats     Chat[]
-  tasks     Task[]
+  uid      String    @id @default(uuid())
+  name     String    @unique
+  password String
+  team     Project[]
+  messages Message[]
+  chats    Chat[]
+  tasks    Task[]
 }
 
 model Message {
-  uid       Int      @id @default(autoincrement())
-  content   String
-  sender    User     @relation(fields: [senderId], references: [uid])
-  senderId  String
-  chat      Chat     @relation(fields: [chatId], references: [uid])
-  chatId    Int
-  created   DateTime @default(now())
+  uid      Int      @id @default(autoincrement())
+  content  String
+  sender   User     @relation(fields: [senderId], references: [uid])
+  senderId String
+  chat     Chat     @relation(fields: [chatId], references: [uid])
+  chatId   Int
+  created  DateTime @default(now())
 }
 
 model Chat {
-  uid        Int     @id @default(autoincrement())
-  messages   Message[]
-  users      User[]
+  uid      Int       @id @default(autoincrement())
+  messages Message[]
+  users    User[]
 }
 
 model Task {
-  uid       Int      @id @default(autoincrement())
-  name      String
-  description   String
-  created   DateTime @default(now())
-  workHours Int 
-  completed Boolean  @default(false)
-  assignees  User[]
-  project   Project?  @relation(fields: [projectId], references: [uid])
-  projectId Int?
+  uid         Int      @id @default(autoincrement())
+  name        String
+  description String
+  created     DateTime @default(now())
+  workHours   Int
+  completed   Boolean  @default(false)
+  assignees   User[]
+  project     Project? @relation(fields: [projectId], references: [uid])
+  projectId   Int?
 }
 
-
 model Project {
-  uid       Int      @id @default(autoincrement())
-  name      String
-  tasks     Task[]
-  users     User[]
+  uid   Int    @id @default(autoincrement())
+  name  String
+  tasks Task[]
+  users User[]
 }

@@ -3,18 +3,36 @@
 		<div class="sender">{{ sender }}</div>
 		<div class="content">{{ message }}</div>
 		<div class="timestamp">{{ timestamp }}</div>
+		<div class="actions">
+			<Icon :icon="removeIcon" @click="onRemove" v-if="isCurrentUser" />
+			<Icon :icon="editIcon" @click="onEdit" v-if="isCurrentUser" />
+		</div>
 	</div>
 </template>
-
 <script setup lang="ts">
+import { Icon } from "@iconify/vue"
+import { defineProps, defineEmits } from "vue"
+
 const props = defineProps<{
 	sender: String
 	message: String
 	timestamp: String
 	isCurrentUser: Boolean
 }>()
-</script>
 
+const removeIcon = "mdi:trash-can-outline"
+const editIcon = "mdi:pencil-outline"
+
+const emits = defineEmits(["edit", "remove"])
+
+const onEdit = () => {
+	emits("edit")
+}
+
+const onRemove = () => {
+	emits("remove")
+}
+</script>
 <style scoped>
 .message {
 	display: flex;
@@ -26,6 +44,7 @@ const props = defineProps<{
 	border-radius: 8px;
 	padding: 8px;
 	background-color: #f5f5f5;
+	position: relative;
 }
 
 .message.current-user {
@@ -46,5 +65,14 @@ const props = defineProps<{
 	font-size: 12px;
 	color: #aaa;
 	margin-top: 4px;
+}
+
+.actions {
+	display: flex;
+}
+
+.actions > * {
+	margin-right: 4px;
+	cursor: pointer;
 }
 </style>

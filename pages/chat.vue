@@ -57,6 +57,24 @@ function isCurrentUserMessage(sender: string) {
 	return sender === currentUser.value!.body!.uid
 }
 
+async function removeMessage(messageId: number) {
+	const { data: response } = await useFetch(`/api/message/${messageId}`, {
+		method: "DELETE",
+	})
+}
+
+async function editMessage(messageId: number) {
+	// Make an alert box with a text input
+	const message = prompt("Edit your message")
+
+	const { data: response } = await useFetch(`/api/message/${messageId}`, {
+		method: "PUT",
+		body: {
+			message: message,
+		},
+	})
+}
+
 // Every second, fetch the chat again
 setInterval(() => {
 	fetchChat(currentChat.value)
@@ -86,6 +104,8 @@ setInterval(() => {
 						isCurrentUserMessage(message.senderId) ? 'is-current-user' : '',
 						'message',
 					]"
+					@edit="editMessage(message.uid)"
+					@remove="removeMessage(message.uid)"
 				/>
 				<p v-if="currentChat == 0" class="no-chat">
 					Choose a chat to start messaging!

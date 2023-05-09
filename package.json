@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
     "@mermaid-js/mermaid-cli": "^10.0.0",
     "nuxt": "^3.2.3",
     "prettier": "^2.8.4",
