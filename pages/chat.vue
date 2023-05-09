@@ -3,7 +3,7 @@ import { User, Message } from ".prisma/client"
 
 const { data: currentUser } = getCurrentUser()
 
-const { data: rooms } = await useFetch("/api/chats", {
+const { data: rooms, refresh } = await useFetch("/api/chats", {
 	method: "GET",
 	query: {
 		// If current user is null, this will be undefined, which is fine
@@ -20,7 +20,7 @@ let messages = ref<MessageUser[]>([])
 async function fetchChat(chatId: number) {
 	currentChat.value = chatId
 
-	const { data: chat } = await useFetch(`/api/chat/${chatId}`, {
+	const { data: chat, refresh } = await useFetch(`/api/chat/${chatId}`, {
 		method: "GET",
 	})
 
@@ -51,6 +51,8 @@ async function sendMessage() {
 
 	// Clear the input
 	message.value = ""
+
+	refresh()
 }
 
 function isCurrentUserMessage(sender: string) {
@@ -61,6 +63,8 @@ async function removeMessage(messageId: number) {
 	const { data: response } = await useFetch(`/api/message/${messageId}`, {
 		method: "DELETE",
 	})
+
+	refresh()
 }
 
 async function editMessage(messageId: number) {
@@ -73,6 +77,8 @@ async function editMessage(messageId: number) {
 			message: message,
 		},
 	})
+
+	refresh()
 }
 
 // Every second, fetch the chat again
