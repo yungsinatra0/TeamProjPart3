@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User, Message } from ".prisma/client"
+import { Icon } from "@iconify/vue"
 
 const { data: currentUser } = getCurrentUser()
 
@@ -11,9 +12,15 @@ const { data: rooms, refresh } = await useFetch("/api/chats", {
 	},
 })
 
-let message = ref("")
-let currentChat = ref(0)
-let messages = ref<MessageUser[]>([])
+const addMemberIcon = "mdi-account-plus"
+const removeMemberIcon = "mdi-logout"
+const message = ref("")
+const currentChat = ref(0)
+const messages = ref<MessageUser[]>([])
+const modalTitle = ref("")
+const modalAdd = ref(false)
+const showModal = ref(false)
+const showMessages = ref(false)
 
 //TODO: Add scrolling to the bottom of the chat when a new message is sent & Set scrollbar to bottom
 
@@ -24,7 +31,10 @@ async function fetchChat(chatId: number) {
 		method: "GET",
 	})
 
-	messages.value = chat.value!.messages
+	if (chat && chat.value && chat.value.messages) {
+		messages.value = chat.value.messages
+	}
+	// messages.value = chat.value!.messages
 }
 
 function toString(members: User[]) {
@@ -81,6 +91,59 @@ async function editMessage(messageId: number) {
 	refresh()
 }
 
+function openModal(isAdd: boolean) {
+	if (currentChat.value === 0) {
+		alert("Please select a chat first!")
+		return
+	}
+	showModal.value = true
+}
+
+async function addUser(senderId: string) {
+	if (senderId === currentUser.value!.body!.uid) {
+		alert("You can't add yourself already!")
+		return
+	}
+
+	const { data: response } = await useFetch(
+		`/api/chat/add-member/${currentChat.value}`,
+		{
+			method: "PUT",
+			body: {
+				sender: senderId,
+			},
+		},
+	)
+
+	refresh()
+}
+
+async function leaveChat() {
+	if (currentChat.value === 0) {
+		alert("Please select a chat first!")
+		return
+	}
+
+	const { data: response } = await useFetch(
+		`/api/chat/remove-member/${currentChat.value}`,
+		{
+			method: "PUT",
+			body: {
+				sender: currentUser.value!.body!.uid,
+			},
+		},
+	)
+
+	if (response.value!.status === 200) {
+		refresh()
+	} else {
+		alert(response.value!.body.message)
+	}
+
+	currentChat.value = 0
+	showMessages.value = false
+}
+
 // Every second, fetch the chat again
 setInterval(() => {
 	fetchChat(currentChat.value)
@@ -95,12 +158,17 @@ setInterval(() => {
 				:key="room.uid"
 				:members="toString(room.users)"
 				:last-message="getLastMessage(room.messages)"
-				@click="fetchChat(room.uid)"
+				@click="
+					{
+						;(showMessages = true), fetchChat(room.uid)
+					}
+				"
 			/>
 		</div>
 		<div class="textChat">
 			<div class="textDisplay">
 				<ChatMessage
+					v-if="showMessages"
 					v-for="message in messages"
 					:sender="message.sender.name"
 					:message="message.content"
@@ -113,14 +181,20 @@ setInterval(() => {
 					@edit="editMessage(message.uid)"
 					@remove="removeMessage(message.uid)"
 				/>
-				<p v-if="currentChat == 0" class="no-chat">
+				<p v-if="!showMessages" class="no-chat">
 					Choose a chat to start messaging!
 				</p>
 			</div>
 			<div class="textEntry">
 				<input class="textInput" v-model="message" />
 				<button class="EnterButton" @click="sendMessage">Enter</button>
+				<div class="chat-actions">
+					<Icon :icon="addMemberIcon" @click="openModal(true)" />
+					<Icon :icon="removeMemberIcon" @click="leaveChat" />
+				</div>
 			</div>
+
+			<Modal v-if="showModal" @choose="addUser" @close="showModal = false" />
 		</div>
 	</div>
 </template>
@@ -203,5 +277,16 @@ setInterval(() => {
 	background-color: var(--button);
 	width: 5rem;
 	height: 100%;
+}
+
+.chat-actions {
+	display: flex;
+	align-items: center;
+	/* background-color: var(--sectionColor); */
+}
+
+.chat-actions > * {
+	margin: 0 0.5rem;
+	cursor: pointer;
 }
 </style>

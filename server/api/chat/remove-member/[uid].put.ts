@@ -9,5 +9,9 @@ export default defineEventHandler(async event => {
 		data: { users : { disconnect: { uid: senderId} } },
 	})
 
-	return { status: 200, body: result}
+	if (result) {
+		return { status: 200, body: result}
+	}
+
+	return { status: 404, body: { message: "Chat not found" } }
 })
