@@ -91,7 +91,7 @@ const chartOptions = computed(() => {
 const chartStyles = computed(() => {
 	return {
 		width: "20ch", // width of the chart
-		height: "50px", // height of the chart
+		height: "30px", // height of the chart
 	}
 })
 </script>

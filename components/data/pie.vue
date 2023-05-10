@@ -83,8 +83,8 @@ const chartOptions = computed(() => {
 
 const chartStyles = computed(() => {
 	return {
-		width: "10ch", // width of the chart
-		height: "15px", // height of the chart
+		//width: "25ch", // width of the chart
+		//height: "40px", // height of the chart
 	}
 })
 
