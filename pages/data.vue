@@ -3,42 +3,36 @@
 		<button @click="toggleChart">{{ buttontext }}</button>
 		<DataBarTasks :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBarTasks>
 		<DataBarUsers :label="'Number of users per project'" :data="projectUsers" v-else></DataBarUsers>
+		
 
 		<div id="projectsDropdown">
 			<select id="projectsSelectBox" @change="selectProject($event)">
 				<option v-for="project in projects">{{ project.name }}</option>
-				<!-- <option value="Project 1">Project 1</option>
-				<option value="Project 2">Project 2</option>
-				<option value="Project 3">Project 3</option>
-				<option value="Project 4">Project 4</option>
-				<option value="Project 5">Project 5</option>
-				<option value="Project 6">Project 6</option>
-				<option value="Project 7">Project 7</option>
-				<option value="Project 8">Project 8</option>
-				<option value="Project 9">Project 9</option>
-				<option value="Project 10">Project 10</option> -->
 			</select>
 		</div>
 
+		<div id="pageLoading" v-if="pageLoading">
 		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="userTasks" v-if="pageLoading"></DataPie>
 		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersHours" v-if="pageLoading"></DataBar>
+		</div>
+
+		<div id="pieCharts" v-if="displayPie">
+			<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj1"></DataPie>
+			<DataPie :label="'Project 2 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj2"></DataPie>
+			<DataPie :label="'Project 3 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj3"></DataPie>
+			<DataPie :label="'Project 4 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj4"></DataPie>
+			<DataPie :label="'Project 5 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj5"></DataPie>
+			<DataPie :label="'Project 6 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj6"></DataPie>
+			<DataPie :label="'Project 7 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj7"></DataPie>
+			<DataPie :label="'Project 8 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj8"></DataPie>
+			<DataPie :label="'Project 9 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj9"></DataPie>
+			<DataPie :label="'Project 10 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj10"></DataPie>
 		
-		<DataPie :label="'Project 1 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj1"></DataPie>
-		<DataPie :label="'Project 2 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj2"></DataPie>
-		<DataPie :label="'Project 3 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj3"></DataPie>
-		<DataPie :label="'Project 4 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj4"></DataPie>
-		<DataPie :label="'Project 5 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj5"></DataPie>
-		<DataPie :label="'Project 6 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj6"></DataPie>
-		<DataPie :label="'Project 7 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj7"></DataPie>
-		<DataPie :label="'Project 8 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj8"></DataPie>
-		<DataPie :label="'Project 9 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj9"></DataPie>
-		<DataPie :label="'Project 10 - Total Tasks for Each Member'" :data="usersWithTasks" v-if="proj10"></DataPie>
-
-		<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersWithHours" v-if="displayPie"></DataBar>
-
+			<DataBar :label="'Total Assigned Hours for Each Member'" :data="usersWithHours" v-if="displayPie"></DataBar>
+		</div>
 	
-		
-		<div id="usersDropdown">
+	
+		<div id="usersDropdown" style="margin-top: 30px;">
 			<select id="usersSelectBox" @change="selectUser($event)">
 				<option v-for="user in users">{{ user.name }}</option>
 			</select>
@@ -93,6 +87,7 @@ function toggleChart() {
 function selectProject(event: any){
 	pageLoading.value = false
 	displayPie.value = true
+	
 	if (event.target.value == "Project 1"){
 		projectSelected = "Project 1"
 		usersTasksFunction()
@@ -386,3 +381,21 @@ const projectUsers = computed(() => {
 })
 //console.log(projectTasks.value)
 </script>
+
+<style>
+#pieCharts{
+	height: 400px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 100px;
+}
+
+#pageLoading{
+	height: 400px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-right: 100px;
+}
+</style>
