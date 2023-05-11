@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<button @click="toggleChart">{{ buttontext }}</button>
+		<button @click="toggleChart" style="margin-left: 5px;">{{ buttontext }}</button>
 		<DataBarTasks :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBarTasks>
 		<DataBarUsers :label="'Number of users per project'" :data="projectUsers" v-else></DataBarUsers>
 		
@@ -357,10 +357,6 @@ let tasksDeadlines = computed(() => {
 })
 
 
-
-
-
-
 // get number of tasks per project
 const projectTasks = computed(() => {
 	const projectAndTasks: { [key: string]: number } = {} // create an object with keys of type string and values of type number
@@ -397,5 +393,18 @@ const projectUsers = computed(() => {
 	flex-direction: row;
 	justify-content: space-between;
 	margin-right: 100px;
+}
+
+body{
+	background-color: #F8F7FA;
+}
+
+#usersDropdown{
+	margin-left: 5px;
+}
+
+#projectsDropdown{
+	margin-left: 5px;
+	margin-top: 15px;
 }
 </style>
