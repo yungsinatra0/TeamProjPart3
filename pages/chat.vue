@@ -17,8 +17,6 @@ const removeMemberIcon = "mdi-logout"
 const message = ref("")
 const currentChat = ref(0)
 const messages = ref<MessageUser[]>([])
-const modalTitle = ref("")
-const modalAdd = ref(false)
 const showModal = ref(false)
 const showMessages = ref(false)
 
@@ -124,29 +122,37 @@ async function leaveChat() {
 		return
 	}
 
-	const { data: response } = await useFetch(
-		`/api/chat/remove-member/${currentChat.value}`,
-		{
-			method: "PUT",
-			body: {
-				sender: currentUser.value!.body!.uid,
+	// Show a popup asking if you really want to leave the chat
+	const confirm = window.confirm("Are you sure you want to leave this chat?")
+
+	if (confirm) {
+		const { data: response } = await useFetch(
+			`/api/chat/remove-member/${currentChat.value}`,
+			{
+				method: "PUT",
+				body: {
+					sender: currentUser.value!.body!.uid,
+				},
 			},
-		},
-	)
+		)
 
-	if (response.value!.status === 200) {
-		refresh()
-	} else {
-		alert(response.value!.body.message)
+		if (response.value!.status === 200) {
+			refresh()
+		} else {
+			alert(response.value!.body.message)
+		}
+
+		currentChat.value = 0
+		showMessages.value = false
 	}
-
-	currentChat.value = 0
-	showMessages.value = false
 }
 
 // Every second, fetch the chat again
+
 setInterval(() => {
-	fetchChat(currentChat.value)
+	if (showMessages.value) {
+		fetchChat(currentChat.value)
+	}
 }, 500)
 </script>
 
@@ -159,8 +165,9 @@ setInterval(() => {
 				:members="toString(room.users)"
 				:last-message="getLastMessage(room.messages)"
 				@click="
-					{
-						;(showMessages = true), fetchChat(room.uid)
+					() => {
+						showMessages = !showMessages
+						showMessages ? (currentChat = room.uid) : (currentChat = 0)
 					}
 				"
 			/>
