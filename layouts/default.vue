@@ -2,85 +2,26 @@
 </script>
 
 <template>
-    <div>
-        <div id="myNav" class="navbar">
-            <NuxtLink :to="`/chat`"> <button class="button button1">TEXT CHAT</button> </NuxtLink>
-            
-            <NuxtLink :to="`/data`"> <button class="button button2">DATA ANALYTICS</button> </NuxtLink>
-        </div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <div>
-            <button class="button button3" style="width: 24px; text-align:center; vertical-align:middle" @click="deleteCookie">LOGOUT</button>
-        </div>
-    </div>
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+		<NuxtLink :to="`/chat`"> <button class="button button1">Text Chat</button> </NuxtLink>
+      </li>
+      <li class="nav-item">
+        <NuxtLink :to="`/data`"> <button class="button button1">Data Analytics</button> </NuxtLink>
+      </li>
+    </ul>
+  </div>
+</nav>
 
     <slot></slot>
 </template>
 
 <style>
-
-/* navigation bar */
- 
-.navbar {
-  height: 15%;
-  width: 100%;
-  /* position: absolute; Causes the navbar to be on top of the page, needs fixing */
-  top: 0;
-  background-color: #111;
-  overflow-x: hidden;
+#nav{
+	background-color: azure;
 }
-
-/* button style */
-.button {
-	border: black;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.button1 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button1:hover {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.button2 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button2:hover {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.button3 {
-    line-height: 3px;
-    width: 4px;
-    font-size: 8pt;
-    margin-top: 1px;
-    margin-right: 1px;
-    position:absolute;
-    top:0;
-	right:0;
-	background-color: white;
-	color: black;
-}
-
-.button3:hover {
-	background-color: blue;
-	color: white;
-}
-
 </style>
