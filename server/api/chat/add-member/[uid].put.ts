@@ -2,11 +2,11 @@ import prisma from "@/prisma"
 
 export default defineEventHandler(async event => {
 	const body = await readBody(event)
-	const senderId = body.sender as string
+	const senderIds = body.sender as string[]
 
 	const result = await prisma.chat.update({
 		where: { uid: +(event.context.params.uid as string) },
-		data: { users : { connect: { uid: senderId} } },
+		data: { users : { connect: senderIds.map((id: string) => ({ uid: id })) } },
 	})
 
 	return { status: 200, body: result}

@@ -2,19 +2,17 @@
 	<div class="modal">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2 class="modal-title">Add a user to the chat</h2>
+				<h2 class="modal-title">{{ title }}</h2>
 				<Icon :icon="closeIcon" @click="closeModal" id="icon" />
 			</div>
 			<div class="modal-body">
-				<label for="user-select">Select a user:</label>
-				<select id="user-select" v-model="selectedUser" class="user-select">
-					<option v-for="user in users" :key="user.uid" :value="user.uid">
-						{{ user.name }}
-					</option>
-				</select>
+				<div v-for="user in filteredUsers" :key="user.uid" class="item">
+					<label>{{ user.name }}</label>
+					<input type="checkbox" :value="user.uid" v-model="selectedUsers" />
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="modal-button" @click="chooseUser">Add member</button>
+				<button class="modal-button" @click="chooseUser">Add members</button>
 			</div>
 		</div>
 	</div>
@@ -23,31 +21,58 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue"
 
-const props = defineProps<{}>()
+const props = defineProps<{
+	currentChat: ChatUM | undefined
+	title: string
+}>()
 
 const emit = defineEmits<{
 	(name: "close", close: boolean): void
-	(name: "choose", userId: string): void
+	(name: "choose", userId: string[]): void
 }>()
 
 const { data: users } = await useFetch("/api/users", {
 	method: "GET",
 })
 
+// Get the current user from the cookie and filter it out from the list of users
+const currentUser = computed(() => {
+	return users.value?.find(user => user.uid === useCookie("uid").value)
+})
+
+// Filter out the users in the current chat from the list of users
+const filteredUsers = computed(() => {
+	if (!props.currentChat) {
+		return users.value
+			? users.value.filter(user => user.uid !== currentUser.value?.uid)
+			: users.value
+	}
+	return users.value?.filter(
+		user => !props.currentChat!.users.some(member => member.uid === user.uid),
+	)
+})
+
 const closeIcon = "mdi:close-thick"
-const selectedUser = ref("")
+const selectedUsers = ref<string[]>([])
 
 function closeModal() {
 	emit("close", true)
 }
 
 function chooseUser() {
-	emit("choose", selectedUser.value)
+	emit("choose", selectedUsers.value)
 	closeModal()
 }
 </script>
 
 <style scoped>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Roboto", sans-serif;
+}
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -87,8 +112,31 @@ function chooseUser() {
 	padding: 1rem;
 	flex-grow: 1;
 	display: flex;
-	justify-content: center;
+	overflow-y: scroll;
+	flex-direction: column;
+	max-height: 15rem;
+}
+
+.item {
+	display: flex;
 	align-items: center;
+	padding: 1rem;
+	border-bottom: 1px solid #eee;
+	height: 2.5rem; /* set a fixed height for each item */
+	width: 100%; /* make each item occupy the entire width of the container */
+	justify-content: center;
+}
+
+.item label {
+	margin-left: 1rem;
+	font-size: 1.2rem;
+	padding-right: 0.5rem;
+}
+
+.item input[type="checkbox"] {
+	margin-right: 1rem;
+	cursor: pointer;
+	transform: scale(1.5);
 }
 
 .modal-footer {
@@ -106,20 +154,6 @@ function chooseUser() {
 	border-radius: 5px;
 	cursor: pointer;
 	font-weight: bold;
-}
-
-.user-select {
-	width: 20ch;
-	height: 3ch;
-	font-size: 1.5rem;
-	/* margin-top: 1rem;
-	margin-bottom: 2rem; */
-}
-
-.modal-body label {
-	font-size: 1.5rem;
-	font-weight: bold;
-	margin-right: 1rem;
 }
 
 #icon {

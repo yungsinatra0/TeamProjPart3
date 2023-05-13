@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User, Message } from ".prisma/client"
+import { User, Message, Chat } from ".prisma/client"
 import { Icon } from "@iconify/vue"
 
 const { data: currentUser } = getCurrentUser()
@@ -16,9 +16,13 @@ const addMemberIcon = "mdi-account-plus"
 const removeMemberIcon = "mdi-logout"
 const message = ref("")
 const currentChat = ref(0)
+const currentChatObject = computed(() => {
+	return rooms.value?.find(chat => chat.uid === currentChat.value)
+})
 const messages = ref<MessageUser[]>([])
 const showModal = ref(false)
 const showMessages = ref(false)
+const showChatModal = ref(false)
 
 //TODO: Add scrolling to the bottom of the chat when a new message is sent & Set scrollbar to bottom
 
@@ -32,7 +36,6 @@ async function fetchChat(chatId: number) {
 	if (chat && chat.value && chat.value.messages) {
 		messages.value = chat.value.messages
 	}
-	// messages.value = chat.value!.messages
 }
 
 function toString(members: User[]) {
@@ -89,17 +92,19 @@ async function editMessage(messageId: number) {
 	refresh()
 }
 
-function openModal(isAdd: boolean) {
+function openModal() {
 	if (currentChat.value === 0) {
 		alert("Please select a chat first!")
 		return
 	}
+
 	showModal.value = true
 }
 
-async function addUser(senderId: string) {
-	if (senderId === currentUser.value!.body!.uid) {
-		alert("You can't add yourself already!")
+async function addUser(senderIds: string[]) {
+	// If current user's id is in the list of sender ids, return
+	if (senderIds.includes(currentUser.value!.body!.uid)) {
+		alert("You are already in this chat!")
 		return
 	}
 
@@ -108,7 +113,7 @@ async function addUser(senderId: string) {
 		{
 			method: "PUT",
 			body: {
-				sender: senderId,
+				sender: senderIds,
 			},
 		},
 	)
@@ -147,7 +152,24 @@ async function leaveChat() {
 	}
 }
 
-// Every second, fetch the chat again
+async function createChat(senderIds: string[]) {
+	const { data: response } = await useFetch("/api/chat", {
+		method: "POST",
+		body: {
+			sender: senderIds,
+		},
+	})
+
+	if (response.value!.status === 201) {
+		refresh()
+	} else {
+		alert("Something went wrong!")
+	}
+
+	showChatModal.value = false
+}
+
+// Every 500ms, fetch the chat again
 
 setInterval(() => {
 	if (showMessages.value) {
@@ -166,11 +188,21 @@ setInterval(() => {
 				:last-message="getLastMessage(room.messages)"
 				@click="
 					() => {
-						showMessages = !showMessages
-						showMessages ? (currentChat = room.uid) : (currentChat = 0)
+						if (currentChat === room.uid) {
+							showMessages = !showMessages
+							if (!showMessages) {
+								currentChat = 0
+							}
+						} else {
+							currentChat = room.uid
+							showMessages = true
+						}
 					}
 				"
 			/>
+			<div class="createChat" @click="showChatModal = true">
+				<!-- <Icon :icon="addIcon" /> -->
+			</div>
 		</div>
 		<div class="textChat">
 			<div class="textDisplay">
@@ -196,12 +228,26 @@ setInterval(() => {
 				<input class="textInput" v-model="message" />
 				<button class="EnterButton" @click="sendMessage">Enter</button>
 				<div class="chat-actions">
-					<Icon :icon="addMemberIcon" @click="openModal(true)" />
+					<Icon :icon="addMemberIcon" @click="openModal" />
 					<Icon :icon="removeMemberIcon" @click="leaveChat" />
 				</div>
 			</div>
 
-			<Modal v-if="showModal" @choose="addUser" @close="showModal = false" />
+			<Modal
+				v-if="showModal"
+				@choose="addUser"
+				@close="showModal = !showModal"
+				:current-chat="currentChatObject"
+				:title="'Add a user to the chat'"
+			/>
+
+			<Modal
+				v-if="showChatModal"
+				@choose="createChat"
+				@close="showChatModal = !showChatModal"
+				:title="'Create a new chat'"
+				:current-chat="undefined"
+			/>
 		</div>
 	</div>
 </template>
@@ -295,5 +341,40 @@ setInterval(() => {
 .chat-actions > * {
 	margin: 0 0.5rem;
 	cursor: pointer;
+}
+.createChat {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 50px;
+	background-color: #f0f0f0;
+	border-radius: 10px;
+	margin-top: 1rem;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.createChat:hover {
+	background-color: #d9d9d9;
+}
+
+.createChat:before,
+.createChat:after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 30px;
+	height: 3px;
+	background-color: #666;
+	border-radius: 10px;
+}
+
+.createChat:before {
+	transform: rotate(90deg);
+}
+
+.createChat:after {
+	transform: rotate(180deg);
 }
 </style>
