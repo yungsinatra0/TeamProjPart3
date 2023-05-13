@@ -1,12 +1,15 @@
 <template>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	
 	<div id="app">
-		<button @click="toggleChart" style="margin-left: 5px;">{{ buttontext }}</button>
+		<button @click="toggleChart" class="btn btn-primary" style="margin-left: 5px;margin-top: 5px;">{{ buttontext }}</button>
 		<DataBarTasks :label="'Number of tasks per project'" :data="projectTasks" v-if="displayIndividual"></DataBarTasks>
 		<DataBarUsers :label="'Number of users per project'" :data="projectUsers" v-else></DataBarUsers>
 		
 
 		<div id="projectsDropdown">
-			<select id="projectsSelectBox" @change="selectProject($event)">
+			<select id="projectsSelectBox" @change="selectProject($event)" class="btn btn-primary">
 				<option v-for="project in projects">{{ project.name }}</option>
 			</select>
 		</div>
@@ -33,7 +36,7 @@
 	
 	
 		<div id="usersDropdown" style="margin-top: 30px;">
-			<select id="usersSelectBox" @change="selectUser($event)">
+			<select id="usersSelectBox" @change="selectUser($event)" class="btn btn-primary">
 				<option v-for="user in users">{{ user.name }}</option>
 			</select>
 		</div>
