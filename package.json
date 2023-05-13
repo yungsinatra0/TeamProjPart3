@@ -16,6 +16,8 @@
     "prisma-erd-generator": "^1.2.4"
   },
   "dependencies": {
-    "@prisma/client": "^4.11.0"
+    "@prisma/client": "^4.11.0",
+    "chart.js": "^4.2.1",
+    "vue-chartjs": "^5.2.0"
   }
 }

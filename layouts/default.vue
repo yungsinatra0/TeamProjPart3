@@ -1,15 +1,20 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div>
-		<div class="navbar">
-			<NuxtLink :to="`/chat`">
-				<button class="button button1">TEXT CHAT</button>
-			</NuxtLink>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-			<NuxtLink :to="`/data`">
-				<button class="button button2">DATA ANALYTICS</button>
-			</NuxtLink>
+<nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+		<NuxtLink :to="`/chat`"> <button class="button button1">Text Chat</button> </NuxtLink>
+      </li>
+      <li class="nav-item">
+        <NuxtLink :to="`/data`"> <button class="button button1">Data Analytics</button> </NuxtLink>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 			<button
 				class="button button3"
@@ -25,65 +30,7 @@
 </template>
 
 <style>
-/* navigation bar */
-.navbar {
-	height: 10vh;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	background-color: #111;
-	overflow-x: hidden;
-}
-
-/* button style */
-.button {
-	border: black;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.button1 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button1:hover {
-	background-color: #4caf50;
-	color: white;
-}
-
-.button2 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button2:hover {
-	background-color: #4caf50;
-	color: white;
-}
-
-.button3 {
-	line-height: 3px;
-	width: 4px;
-	font-size: 8pt;
-	margin-top: 1px;
-	margin-right: 1px;
-	padding-right: 64px;
-	background-color: white;
-	color: black;
-}
-
-.button3:hover {
-	background-color: blue;
-	color: white;
+#nav{
+	background-color: azure;
 }
 </style>
