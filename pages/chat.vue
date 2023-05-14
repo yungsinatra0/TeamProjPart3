@@ -38,7 +38,7 @@ async function fetchChat(chatId: number) {
 	}
 }
 
-function toString(members: User[]) {
+function toString(members: UserNP[]) {
 	return members.map(member => member.name).join(", ")
 }
 
@@ -51,6 +51,12 @@ function getLastMessage(messages: Message[]): string {
 }
 
 async function sendMessage() {
+	// If there is no current chat, return
+	if (currentChat.value === 0) {
+		alert("Please select a chat first!")
+		return
+	}
+
 	// Take input from textInput and send it to the server
 	const { data: response } = await useFetch(`/api/chat/${currentChat.value}`, {
 		method: "PUT",
@@ -205,6 +211,11 @@ setInterval(() => {
 			</div>
 		</div>
 		<div class="textChat">
+			<div>
+				<h3 v-if="currentChat != 0" class="current-chat-user">
+					Chat with: {{ toString(currentChatObject!.users) }}
+				</h3>
+			</div>
 			<div class="textDisplay">
 				<ChatMessage
 					v-if="showMessages"
@@ -267,13 +278,27 @@ setInterval(() => {
 }
 
 .no-chat {
-	color: #777;
+	color: #ffffff;
 	font-style: italic;
+	font-weight: bold;
+	font-size: 1.5rem;
 }
 
 .chat-container {
 	display: flex;
 	height: 90vh;
+}
+
+.current-chat-user {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2rem;
+	background-color: #6a737d;
+	color: #fff;
+	font-size: 1.25rem;
+	font-weight: bold;
+	text-align: center;
 }
 
 .searchBar {
@@ -301,7 +326,7 @@ setInterval(() => {
 	display: flex;
 	flex-direction: column;
 	max-height: 90vh;
-	scroll-behavior: smooth; /* added */
+	scroll-behavior: smooth;
 }
 
 .textDisplay .message {

@@ -18,4 +18,9 @@ declare global {
         users: User[]
         messages: Message[]
     }
+
+    // Remove the password field from the User type
+    type UserNP = User & {
+        password: never
+    }
 }

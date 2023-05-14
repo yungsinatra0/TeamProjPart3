@@ -16,12 +16,14 @@ import { defineProps, defineEmits } from "vue"
 const props = defineProps<{
 	sender: String
 	message: String
-	timestamp: String
+	timestamp: Date
 	isCurrentUser: Boolean
 }>()
 
 const removeIcon = "mdi:trash-can-outline"
 const editIcon = "mdi:pencil-outline"
+// Parse the timestamp into a readable format
+const timestamp = new Date(props.timestamp).toLocaleString()
 
 const emits = defineEmits(["edit", "remove"])
 

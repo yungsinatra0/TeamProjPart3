@@ -15,7 +15,13 @@ export default defineEventHandler(async event => {
             }
         },
         include: {
-            users: true,
+            users: {
+                select: {
+                    uid: true,
+                    name: true,
+                    password: false,
+                }
+            },
             messages: true
         }
     })

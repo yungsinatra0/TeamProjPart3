@@ -5,7 +5,13 @@ export default defineEventHandler( event => {
        where: { uid: +(event.context.params.uid as string) },
         include: {
             tasks: true,
-            users: true
+            users: {
+                select: {
+                    uid: true,
+                    name: true,
+                    password: false,
+                }
+            }
         }
     })
 })

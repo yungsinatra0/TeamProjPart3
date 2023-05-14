@@ -5,6 +5,11 @@ export default defineEventHandler(async event => {
     
     // Returns all users in the database.
     return await prisma.user.findMany({
+        select: {
+            uid: true,
+            name: true,
+            password: false,
+        }
         //where: {},
         //include: {}
     })

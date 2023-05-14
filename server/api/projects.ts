@@ -8,7 +8,13 @@ export default defineEventHandler(async event => {
         //where: {},
         include: {
             tasks: true,
-            users: true
+            users: {
+                select: {
+                    uid: true,
+                    name: true,
+                    password: false,
+                }
+            }
         }
     })
 })

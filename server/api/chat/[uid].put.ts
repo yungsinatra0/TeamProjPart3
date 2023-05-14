@@ -6,7 +6,7 @@ export default defineEventHandler(async event => {
 	const senderId = body.sender as string
 
 	// Add the new message to the chat.
-	// There is no functionality support to directly push a new message to the chat using Prisma.
+	// There is no functionality support to directly push a new message to the chat using Prisma for MySQL.
 	// As such, we have to create a new message and then connect that to the chat.
 
 	const message = await prisma.message.create({
