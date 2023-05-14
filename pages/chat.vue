@@ -12,6 +12,8 @@ const { data: rooms, refresh } = await useFetch("/api/chats", {
 	},
 })
 
+console.log(rooms.value)
+
 const addMemberIcon = "mdi-account-plus"
 const removeMemberIcon = "mdi-logout"
 const message = ref("")
@@ -154,7 +156,7 @@ async function createChat(senderIds: string[]) {
 	const { data: response } = await useFetch("/api/chat", {
 		method: "POST",
 		body: {
-			sender: senderIds,
+			sender: [...senderIds, currentUser.value!.body!.uid],
 		},
 	})
 
