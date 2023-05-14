@@ -24,8 +24,6 @@ const showModal = ref(false)
 const showMessages = ref(false)
 const showChatModal = ref(false)
 
-//TODO: Add scrolling to the bottom of the chat when a new message is sent & Set scrollbar to bottom
-
 async function fetchChat(chatId: number) {
 	currentChat.value = chatId
 

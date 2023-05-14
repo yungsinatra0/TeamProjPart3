@@ -10,5 +10,5 @@ export default defineEventHandler(async event => {
 		},
 	})
 
-	return {response: 200, body:result.uid}
+	return {response: 200, body: result.uid}
 })

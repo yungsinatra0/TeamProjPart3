@@ -17,8 +17,10 @@ async function onSubmit() {
 		method: "POST",
 		body: data,
 	})
-	if (!result) {
-		alert("Invalid username or password")
+	if (result.response === 401) {
+		alert(result.body)
+	} else if (result.response === 404) {
+		alert(result.body)
 	} else {
 		createCookie(result.body as User)
 		navigateTo("/dashboard")
