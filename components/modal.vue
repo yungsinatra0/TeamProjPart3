@@ -60,6 +60,10 @@ function closeModal() {
 }
 
 function chooseUser() {
+	if (selectedUsers.value.length === 0) {
+		alert("Please select at least one user!")
+		return
+	}
 	emit("choose", selectedUsers.value)
 	closeModal()
 }

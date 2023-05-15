@@ -167,13 +167,13 @@ async function createChat(senderIds: string[]) {
 	if (response.value!.status === 201) {
 		refresh()
 	} else {
-		alert("Something went wrong!")
+		alert(response.value?.body)
 	}
 
 	showChatModal.value = false
 }
 
-// Every 500ms, fetch the chat again
+// Every 500ms, fetch the chats again
 
 setInterval(() => {
 	if (showMessages.value) {

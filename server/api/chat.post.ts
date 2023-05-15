@@ -12,5 +12,7 @@ export default defineEventHandler(async event => {
 		},
 	})
 
+	if (result === null) return { status: 500, body: "Error creating chat."}
+
 	return { status: 201, body: result}
 })
