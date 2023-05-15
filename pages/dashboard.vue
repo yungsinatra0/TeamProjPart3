@@ -1,148 +1,110 @@
 <script setup lang="ts">
-//call generator file to fill database with dummy data
-async function fillDatabase() {
-	await useFetch("/api/generator")
-}
+const { data: currentUser } = getCurrentUser()
+
+// Update the time every second
+const currentDateTime = ref(new Date().toLocaleString())
+setInterval(() => {
+	currentDateTime.value = new Date().toLocaleString()
+}, 1000)
 </script>
 
 <template>
-	<div>
-		<h1 style="color: black">Employee Dashboard</h1>
-	</div>
+	<div class="dashboard">
+		<h1 class="dashboard-title">Employee Dashboard</h1>
+		<h2 class="dashboard-welcome">Welcome {{ currentUser!.body.name }}</h2>
+		<p class="dashboard-datetime">{{ currentDateTime }}</p>
 
-	<div class="generatorFile">
-		<button @click="fillDatabase()">Fill Database</button>
-		<!-- click button to fill database with dummy data -->
+		<div class="dashboard-widgets">
+			<div class="dashboard-widget">
+				<h3 class="dashboard-widget-title">Task List</h3>
+				<ul class="dashboard-task-list">
+					<li class="dashboard-task">Task 1</li>
+					<li class="dashboard-task">Task 2</li>
+					<li class="dashboard-task">Task 3</li>
+				</ul>
+			</div>
+
+			<div class="dashboard-widget">
+				<h3 class="dashboard-widget-title">Notifications</h3>
+				<ul class="dashboard-notification-list">
+					<li class="dashboard-notification">Notification 1</li>
+					<li class="dashboard-notification">Notification 2</li>
+					<li class="dashboard-notification">Notification 3</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
-<style type="text/css">
+
+<style>
+/* General styles */
 body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	background-color: #f0ffff;
+	margin: 0;
+	padding: 0;
 }
-.center {
+
+.dashboard {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.dashboard-title {
+	color: black;
+	margin-bottom: 20px;
+}
+
+.dashboard-welcome {
+	margin-bottom: 40px;
+}
+
+.dashboard-datetime {
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 20px;
 	text-align: center;
-}
-body,
-td,
-th {
-	color: black;
-}
-.larger {
-	font-size: larger;
-	text-align: left;
-}
-table {
-	margin-left: auto;
-	margin-right: auto;
-}
-.fixed {
-	font-family: Courier, monospace;
-	white-space: pre;
-	background-color: cornsilk;
+	color: #333;
 }
 
-/* Page content */
-.main {
-	margin-left: 200px; /* Same as the width of the sidenav */
+/* Widget styles */
+.dashboard-widgets {
+	display: flex;
+	justify-content: space-between;
 }
 
-.navbar a:hover {
-	color: blue;
-}
-/* button style */
-.button {
-	border: black;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.button1 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button1:hover {
-	background-color: #4caf50;
-	color: white;
-}
-
-.button2 {
-	background-color: white;
-	color: black;
-	border: 2px solid #000000;
-}
-
-.button2:hover {
-	background-color: #4caf50;
-	color: white;
-}
-
-.button3 {
-	line-height: 3px;
-	width: 4px;
-	font-size: 8pt;
-	margin-top: 1px;
-	margin-right: 1px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: white;
-	color: black;
-}
-
-.button3:hover {
-	background-color: blue;
-	color: white;
-}
-
-/* task list */
-
-body {
-	height: 100vh;
-	background-color: white;
-}
-
-.box1 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
+.dashboard-widget {
+	flex-basis: calc(50% - 10px);
+	background-color: #000;
 	color: #fff;
-	padding: 10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	margin-top: 100px;
+	padding: 20px;
+	border-radius: 8px;
+	margin-bottom: 20px;
 }
 
-.box2 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
+.dashboard-widget-title {
 	color: #fff;
-	padding: 10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	top: 100px;
+	margin-top: 0;
 }
 
-.box3 {
-	display: inline-block;
-	height: 300px;
-	width: 400px;
-	background-color: black;
-	color: #fff;
-	padding: 10px;
-	border-radius: 8px 10px 12 px 14px;
-	margin: 20px;
-	top: 50px;
+/* Task list styles */
+.dashboard-task-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.dashboard-task {
+	margin-bottom: 10px;
+}
+
+/* Notification list styles */
+.dashboard-notification-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.dashboard-notification {
+	margin-bottom: 10px;
 }
 </style>

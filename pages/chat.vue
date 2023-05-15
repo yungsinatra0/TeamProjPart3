@@ -12,8 +12,6 @@ const { data: rooms, refresh } = await useFetch("/api/chats", {
 	},
 })
 
-console.log(rooms.value)
-
 const addMemberIcon = "mdi-account-plus"
 const removeMemberIcon = "mdi-logout"
 const message = ref("")
@@ -181,6 +179,7 @@ setInterval(() => {
 	if (showMessages.value) {
 		fetchChat(currentChat.value)
 	}
+	refresh()
 }, 500)
 </script>
 
@@ -286,7 +285,8 @@ setInterval(() => {
 
 .chat-container {
 	display: flex;
-	height: 90vh;
+	/* flex-direction: column; */
+	height: 94vh;
 }
 
 .current-chat-user {
@@ -312,10 +312,12 @@ setInterval(() => {
 
 .textChat {
 	width: 70%;
-	max-height: 90vh;
+	/* max-height: 90vh; */
+	flex: 1;
 	background-color: var(--sectionColor);
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 .textDisplay {
@@ -325,7 +327,7 @@ setInterval(() => {
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
-	max-height: 90vh;
+	/* max-height: 90vh; */
 	scroll-behavior: smooth;
 }
 
