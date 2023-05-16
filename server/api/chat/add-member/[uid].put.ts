@@ -5,9 +5,11 @@ export default defineEventHandler(async event => {
 	const senderIds = body.sender as string[]
 
 	const result = await prisma.chat.update({
-		where: { uid: +(event.context.params.uid as string) },
+		where: { uid: +(event.context.params!.uid as string) },
 		data: { users : { connect: senderIds.map((id: string) => ({ uid: id })) } },
 	})
+
+	if (result === null) return { status: 500, body: "Error adding member."}
 
 	return { status: 200, body: result}
 })

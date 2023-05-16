@@ -24,6 +24,14 @@ const showModal = ref(false)
 const showMessages = ref(false)
 const showChatModal = ref(false)
 
+function sendAlert(message: string, status: number) {
+	if (status === 200 || status === 201) {
+		refresh()
+	} else {
+		alert(message)
+	}
+}
+
 async function fetchChat(chatId: number) {
 	currentChat.value = chatId
 
@@ -31,8 +39,8 @@ async function fetchChat(chatId: number) {
 		method: "GET",
 	})
 
-	if (chat && chat.value && chat.value.messages) {
-		messages.value = chat.value.messages
+	if (chat && chat.value && chat.value.body.messages) {
+		messages.value = chat.value.body.messages
 	}
 }
 
@@ -67,7 +75,7 @@ async function sendMessage() {
 	// Clear the input
 	message.value = ""
 
-	refresh()
+	sendAlert(response.value!.body as string, response.value!.status)
 }
 
 function isCurrentUserMessage(sender: string) {
@@ -86,6 +94,11 @@ async function editMessage(messageId: number) {
 	// Make an alert box with a text input
 	const message = prompt("Edit your message")
 
+	if (!message) {
+		alert("Please enter a message!")
+		return
+	}
+
 	const { data: response } = await useFetch(`/api/message/${messageId}`, {
 		method: "PUT",
 		body: {
@@ -93,7 +106,7 @@ async function editMessage(messageId: number) {
 		},
 	})
 
-	refresh()
+	sendAlert(response.value!.body as string, response.value!.status)
 }
 
 function openModal() {
@@ -122,7 +135,7 @@ async function addUser(senderIds: string[]) {
 		},
 	)
 
-	refresh()
+	sendAlert(response.value!.body as string, response.value!.status)
 }
 
 async function leaveChat() {
@@ -145,11 +158,7 @@ async function leaveChat() {
 			},
 		)
 
-		if (response.value!.status === 200) {
-			refresh()
-		} else {
-			alert(response.value!.body.message)
-		}
+		sendAlert(response.value!.body as string, response.value!.status)
 
 		currentChat.value = 0
 		showMessages.value = false
@@ -164,11 +173,7 @@ async function createChat(senderIds: string[]) {
 		},
 	})
 
-	if (response.value!.status === 201) {
-		refresh()
-	} else {
-		alert(response.value?.body)
-	}
+	sendAlert(response.value!.body as string, response.value!.status)
 
 	showChatModal.value = false
 }
@@ -189,7 +194,7 @@ setInterval(() => {
 			<ChatList
 				v-for="room in rooms"
 				:key="room.uid"
-				:members="toString(room.users)"
+				:members="toString(room.users as UserNP[])"
 				:last-message="getLastMessage(room.messages)"
 				@click="
 					() => {
@@ -212,7 +217,7 @@ setInterval(() => {
 		<div class="textChat">
 			<div>
 				<h3 v-if="currentChat != 0" class="current-chat-user">
-					Chat with: {{ toString(currentChatObject!.users) }}
+					Chat with: {{ toString(currentChatObject!.users as UserNP[]) }}
 				</h3>
 			</div>
 			<div class="textDisplay">

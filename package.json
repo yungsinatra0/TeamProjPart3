@@ -9,14 +9,14 @@
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
-    "@mermaid-js/mermaid-cli": "^10.0.0",
+    "@mermaid-js/mermaid-cli": "^10.1.0",
     "nuxt": "^3.2.3",
     "prettier": "^2.8.4",
-    "prisma": "^4.11.0",
-    "prisma-erd-generator": "^1.2.4"
+    "prisma": "^4.14.0",
+    "prisma-erd-generator": "^1.7.0"
   },
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^4.14.0",
     "chart.js": "^4.2.1",
     "vue-chartjs": "^5.2.0"
   }

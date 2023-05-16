@@ -11,16 +11,18 @@ export default defineEventHandler(async event => {
 
 	const message = await prisma.message.create({
 		data: {
-			chat: { connect: { uid: +(event.context.params.uid as string) } },
+			chat: { connect: { uid: +(event.context.params!.uid as string) } },
 			content: newMessage,
 			sender: { connect: { uid: senderId } },
 		}
 	})
 
 	const result = await prisma.chat.update({
-		where: { uid: +(event.context.params.uid as string) },
+		where: { uid: +(event.context.params!.uid as string) },
 		data: { messages: { connect: { uid: message.uid} } },
 	})
+
+	if (result === null) return { status: 500, body: "Error updating chat."}
 
 	return { status: 200, body: result}
 })

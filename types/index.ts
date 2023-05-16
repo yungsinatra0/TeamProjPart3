@@ -15,7 +15,10 @@ declare global {
     }
 
     type ChatUM = Chat & {
-        users: User[]
+        users: {
+            name: string
+            uid: string
+        }[]
         messages: Message[]
     }
 
