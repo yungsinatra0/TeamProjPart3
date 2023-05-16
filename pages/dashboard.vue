@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+	layout: "default",
+})
+
 const { data: currentUser } = getCurrentUser()
 
 // Update the time every second

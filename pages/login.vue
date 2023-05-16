@@ -13,16 +13,16 @@ async function onSubmit() {
 		password: form.value!.password.value,
 	}
 
-	const result = await $fetch("/api/login", {
+	const { data: result } = await useFetch("/api/login", {
 		method: "POST",
 		body: data,
 	})
-	if (result.response === 401) {
-		alert(result.body)
-	} else if (result.response === 404) {
-		alert(result.body)
+	if (result.value!.response === 401) {
+		alert(result.value!.body)
+	} else if (result.value!.response === 404) {
+		alert(result.value!.body)
 	} else {
-		createCookie(result.body as User)
+		createCookie(result.value!.body as User)
 		navigateTo("/dashboard")
 	}
 }
