@@ -3,6 +3,7 @@
 <template>
 	<nav id="nav">
 		<div class="nav-left">
+			<NuxtLink to="/" class="nav-link">Home</NuxtLink>
 			<NuxtLink to="/chat" class="nav-link">Text Chat</NuxtLink>
 			<NuxtLink to="/data" class="nav-link">Data Analytics</NuxtLink>
 		</div>
